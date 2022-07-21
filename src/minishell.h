@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/07/18 18:56:10 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/07/21 05:21:53 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ t_sl_list	*get_token_list(void);
 
 void	ft_puterror(char *msg);
 int		ft_strcmp(const char *s1, const char *s2);
+int		num_args(char **line);
 
 #endif //MINISHELL_H

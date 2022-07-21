@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:35 by fcassand          #+#    #+#             */
-/*   Updated: 2022/07/20 04:37:42 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/07/21 05:56:15 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ int	to_home_or_prev_dir(t_sl_list *env, int old_or_home)
 	{
 		path = env_path(env, "HOME", 4);
 		if (!path)
-			return(cd_error("HOME not set"));
+			return (cd_error("HOME not set"));
 	}
 	else
 	{
 		path = env_path(env, "OLDPWD", 6);
 		if (!path)
-			return(cd_error("OLDPWD not set"));
+			return (cd_error("OLDPWD not set"));
 	}
 	update_pwd(env, "OLDPWD", NULL, 6);
 	chdir(path);
