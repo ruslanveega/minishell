@@ -6,9 +6,13 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:22 by fcassand          #+#    #+#             */
-/*   Updated: 2022/07/16 18:47:11 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/07/22 03:18:54 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	ft_exit()
+{
+	
+}

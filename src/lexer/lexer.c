@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:03:29 by cdell             #+#    #+#             */
-/*   Updated: 2022/06/19 18:48:05 by cdell            ###   ########.fr       */
+/*   Updated: 2022/07/24 01:19:34 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,15 @@ void	build_token_list(char **line, t_sl_list **token_list)
 	}
 }
 
-t_sl_list	*get_token_list(void)
+t_sl_list	*get_token_list(char *tmp)
 {
 	t_sl_list	*token_list;
-	char	*line;
-	char	*tmp;
+	char		*line;
+	// char		*tmp;
 
-	tmp = readline("");
+	// tmp = readline("");
 	line = ft_strtrim(tmp, WHITE_SPACE_CHARS);
-	free (tmp);
+	// free (tmp);
 	if (!line)
 		ft_puterror("Failed to allocate memory *get_token_list(void)");
 	tmp = line;

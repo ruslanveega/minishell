@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:35 by fcassand          #+#    #+#             */
-/*   Updated: 2022/07/21 05:56:15 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/07/22 03:24:59 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,3 @@ void	ft_cd(char **line, t_sl_list *env)
 		}
 	}
 }
-
-// chdir, getcwd
-// нужно изменить env oldpwd && pwd

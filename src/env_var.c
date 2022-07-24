@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:59:47 by cdell             #+#    #+#             */
-/*   Updated: 2022/07/07 18:59:49 by cdell            ###   ########.fr       */
+/*   Updated: 2022/07/24 01:00:51 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void print_env_list(t_sl_list *env_var_list)
 
 t_sl_list	*get_env_var(char *env[])
 {
-	int i;
-	size_t size[2];
+	int			i;
+	size_t		size[2];
 	t_sl_list	*env_var_list;
 	char *key;
 	char *value;
@@ -59,6 +59,6 @@ t_sl_list	*get_env_var(char *env[])
 		i++;
 	}
 	print_env_list(env_var_list);
-//	return (env_var_list);
-	return (NULL);
+	return (env_var_list);
+//	return (NULL);
 }

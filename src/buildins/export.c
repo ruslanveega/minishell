@@ -6,11 +6,18 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:19 by fcassand          #+#    #+#             */
-/*   Updated: 2022/07/21 05:55:48 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/07/22 03:26:53 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	*export_error(char *error, char *line)
+{
+	if (line)
+		printf("%s %s", error, line);
+	return (NULL);
+}
 
 void	env_add_back(t_sl_list *env, t_sl_list *new_env)
 {
@@ -37,26 +44,31 @@ t_sl_list	*valid_env(char *line)
 	value++;
 	new_env = malloc(sizeof(t_sl_list));
 	if (!new_env)
-		return (error("allocation"));
+		return (export_error("allocation", NULL));
 	new_env->value = value;
 	tmp = line;
+	if (ft_isdigit(line[0]))
+		return (export_error("export: not an identifier: ", line));
 	while (*line != '=')
 		len++;
 	*line = '\0';
 	new_env->key = ft_strjoin("", tmp);
 	if (!new_env->key)
-		return (error("allocation"));
+		return (export_error("allocation", NULL));
 	return (new_env);
 }
 
-int	ft_export(char **line, t_sl_list *env)
+void	ft_export(char **line, t_sl_list *env)
 {
 	int			len;
 	int			i;
 	t_sl_list	*new_env;
 
 	if (!line[1])
-		return (declare(env));
+	{
+		ft_env(env, 1);
+		return ;
+	}
 	len = num_args(line);
 	i = 1;
 	new_env = NULL;
@@ -67,5 +79,4 @@ int	ft_export(char **line, t_sl_list *env)
 			env_add_backenv(env, new_env);
 		i++;
 	}
-	return (0);
 }
