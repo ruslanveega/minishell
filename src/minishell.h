@@ -6,14 +6,12 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/07/24 01:33:48 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/04 00:17:02 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-typedef struct s_token t_token;
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -31,14 +29,31 @@ typedef struct s_sl_list
 	struct s_sl_list	*next;
 }	t_sl_list;
 
+typedef struct s_redir
+{
+	int		type;
+	char	*file;
+	t_redir	*next;
+}	t_redir;
+
+typedef struct s_pipe
+{
+	t_sl_list	*env;
+	t_redir		*redir;
+	char		*command;
+	int			is_add_new_var;
+	char		**line;
+	int			result;
+	char		*error;
+	t_pipe		*next;
+}	t_pipe;
+
 typedef struct s_all
 {
-	int			exit;
-	int			pipes;
-	int			is_buildin;
+	// int			exit;
+	int			exit_status;
 	t_sl_list	*env;
-	t_sl_list	*token;
-	t_sl_list	*redir;
+	t_pipe		*pipes;
 	char		**args;
 }	t_all;
 
