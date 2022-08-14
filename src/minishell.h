@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/04 00:17:02 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/14 22:09:51 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 # include "../libft/libft.h"
 # include "lexer/lexer.h"
+
 
 typedef struct s_sl_list
 {
@@ -41,9 +45,10 @@ typedef struct s_pipe
 	t_sl_list	*env;
 	t_redir		*redir;
 	char		*command;
-	int			is_add_new_var;
+	int			fd_in;
+	int			fd_out;
 	char		**line;
-	int			result;
+	// int			result;
 	char		*error;
 	t_pipe		*next;
 }	t_pipe;
@@ -51,10 +56,12 @@ typedef struct s_pipe
 typedef struct s_all
 {
 	// int			exit;
+	int			fds[2];
 	int			exit_status;
+	// int			is_heredoc;
 	t_sl_list	*env;
 	t_pipe		*pipes;
-	char		**args;
+	// char		**args;
 }	t_all;
 
 //parsing
@@ -63,7 +70,7 @@ t_sl_list	*get_env_var(char *env[]);
 t_sl_list	*get_token_list(char *tmp);
 
 //utils
-void	ft_puterror(char *msg);
+int		ft_puterror(char *msg);
 int		ft_strcmp(const char *s1, const char *s2);
 int		num_args(char **line);
 
@@ -74,6 +81,9 @@ void	ft_env(t_sl_list *env, int declare);
 void	ft_export(char **line, t_sl_list *env);
 void	ft_pwd(t_sl_list *env);
 void	ft_unset(char **line, t_sl_list *env);
-//
 
+//executor
+int		ft_to_file(t_redir *redir, int *fd, int flag, int need_dup);
+int		read_from_file(t_redir *redir, int *fd, int need_dup);
+int		execute_build(t_pipe *pipe);
 #endif //MINISHELL_H
