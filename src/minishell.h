@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/17 01:33:07 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/17 04:45:28 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 #include <fcntl.h>
 # include "../libft/libft.h"
 # include "lexer/lexer.h"
 # include "parser/parser.h"
 
+# define FALSE 0
+# define TRUE 1
 
 typedef struct s_sl_list
 {

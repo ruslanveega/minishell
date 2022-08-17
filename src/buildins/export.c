@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:19 by fcassand          #+#    #+#             */
-/*   Updated: 2022/07/22 03:26:53 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/17 04:26:32 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_sl_list	*valid_env(char *line)
 	while (*line != '=')
 		len++;
 	*line = '\0';
-	new_env->key = ft_strjoin("", tmp);
+	new_env->key = ft_strjoin("", tmp, "");
 	if (!new_env->key)
 		return (export_error("allocation", NULL));
 	return (new_env);

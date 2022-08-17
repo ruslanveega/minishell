@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/16 03:03:03 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/17 04:47:30 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int	file_execution(t_all *all)
 	redir = all->pipes->redir;
 	while (redir != NULL)
 	{
-		if (redir->type == ">")
-			if (ft_to_file(redir, &all->fds[1], 1, 1))
+		if (redir->type == REDIRECT_OUT)
+			if (ft_to_file(redir, &all->fds[1], TRUE, TRUE))
 				return (1);
-		else if (redir->type == ">>")
-			if (ft_to_file(redir, &all->fds[1], 0, 1))
+		else if (redir->type == REDIRECT_APPEND)
+			if (ft_to_file(redir, &all->fds[1], FALSE, TRUE))
 				return (1);
-		else if (redir->type == "<")
-			if (read_from_file(redir, &all->fds[0], 1))
+		else if (redir->type == REDIRECT_IN)
+			if (read_from_file(redir, &all->fds[0], TRUE))
 				return (1);
-		else if (redir->type == "<<")
+		else if (redir->type == REDIRECT_HEREDOC)
 			if (make_heredoc(all->pipes, redir))
 				return (error_exit());
 		redir = redir->next;
@@ -66,8 +66,8 @@ void	execute_single(t_all *all)
 		else
 			execute_bin(all->pipes);
 	}
-	else
-		not_execute(all); //cases with $ and var=
+	// else
+	// 	not_execute(all); //cases with $ and var=
 }
 
 void	start_executor(t_all *all)

@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:23:55 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/16 03:01:42 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/17 04:46:16 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ int	choose_out_in(t_pipe *pipes, t_redir *redir)
 {
 	while (redir)
 	{
-		if (redir->type == ">")
-			if (ft_to_file(redir, &pipes->fd_out, 1, 0))
+		if (redir->type == REDIRECT_OUT)
+			if (ft_to_file(redir, &pipes->fd_out, TRUE, FALSE))
 				return (error_exit());
-		else if (redir->type == ">>")
-			if (ft_to_file(redir, &pipes->fd_out, 1, 0))
+		else if (redir->type == REDIRECT_APPEND)
+			if (ft_to_file(redir, &pipes->fd_out, TRUE, FALSE))
 				return (error_exit());
-		else if (redir->type == "<")
-			if (read_from_file(redir, &pipes->fd_in, 0))
+		else if (redir->type == REDIRECT_IN)
+			if (read_from_file(redir, &pipes->fd_in, FALSE))
 				return (error_exit());
-		else if (redir->type == "<<")
+		else if (redir->type == REDIRECT_HEREDOC)
 			if (make_heredoc(pipes, redir))
 				return (error_exit());
 		redir = redir->next;

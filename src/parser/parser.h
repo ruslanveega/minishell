@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 06:50:35 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/17 01:32:07 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/17 04:41:50 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct	s_str_chunk
 
 typedef struct s_cmd_list
 {
-	char				 **cmd_options;
+	char				**cmd_options;
 	t_list				*redirect;
 	struct s_cmd_list	*next;
 } t_cmd_list;
