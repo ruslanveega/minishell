@@ -3,16 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Abdu-Rashid <Abdu-Rashid@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:44:37 by cdell             #+#    #+#             */
-/*   Updated: 2022/07/06 18:42:09 by cdell            ###   ########.fr       */
+/*   Updated: 2022/07/30 23:20:05 by Abdu-Rashid      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void parser()
+static void	process_token_list(t_list *token_list)
 {
-	printf("parser/n");
+	t_list	*tokens;
+
+	tokens = token_list;
+	expand_token_list(tokens);
+	join_token_list(tokens);
+	strip_space(tokens);
+	evaluate_token_list(tokens);
+}
+
+t_cmd_list	*parse_input(char *line)
+{
+	t_cmd_list	*cmd_list;
+	t_list		*token_list;
+
+	cmd_list = NULL;
+	token_list = get_token_list(line);
+	process_token_list(token_list);
+	get_cmd_list(&cmd_list, token_list);
+	print_cmd_list(cmd_list);
+	ft_lstclear(&token_list, clear_node);
+	return (cmd_list);
 }

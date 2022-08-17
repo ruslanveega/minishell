@@ -6,44 +6,11 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/14 21:54:05 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/16 03:03:03 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "../minishell.h"
-
-int	read_from_file(t_redir *redir, int *fd, int need_dup)
-{
-	*fd = open(redir->file, O_RDONLY);
-	if (*fd == -1)
-		return (ft_puterror("file error"));
-	if (need_dup)
-	{
-		if (dup2(*fd, STDIN_FILENO) == -1)
-			return (ft_puterror(""));
-		close(*fd);
-	}
-	return (0);
-}
-
-int	ft_to_file(t_redir *redir, int *fd, int flag, int need_dup)
-{
-	if (flag)
-		*fd = open(redir->file, O_CREAT | O_TRUNC
-				| O_RDONLY | O_WRONLY, 0644);
-	else
-		*fd = open(redir->file, O_CREAT | O_RDONLY
-		| O_WRONLY | O_APPEND, 0644);
-	if (*fd == -1)
-		return (ft_puterror(""));
-	if (need_dup)
-	{
-		if (dup2(*fd, STDOUT_FILENO) == -1)
-			return (ft_puterror(""));
-		close(*fd);
-	}
-	return (0);
-}
 
 int	file_execution(t_all *all)
 {
@@ -74,13 +41,16 @@ int	file_execution(t_all *all)
 void	execute_bin(t_pipe *pipe)
 {
 	int		pid;
+	char	*full_path;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(pipe->command, pipe->line, pipe->env) == -1)
-			ft_puterror(pipe->command);
-		exit(1);
+		full_path = get_full_path(pipe->command, pipe->env);
+		if (!full_path)
+			ft_error_exit("can't find command", pipe->command);
+		if (execve(full_path, pipe->line, pipe->env) == -1)
+			ft_error_exit("can't execute command", pipe->command);
 	}
 }
 

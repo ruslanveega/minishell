@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/14 22:09:51 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/17 01:33:07 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <fcntl.h>
 # include "../libft/libft.h"
 # include "lexer/lexer.h"
+# include "parser/parser.h"
 
 
 typedef struct s_sl_list
@@ -32,6 +33,12 @@ typedef struct s_sl_list
 	void				*value;
 	struct s_sl_list	*next;
 }	t_sl_list;
+
+typedef struct s_env_var
+{
+	char	*key;
+	char	*value;
+}	t_env_var;
 
 typedef struct s_redir
 {
@@ -48,20 +55,16 @@ typedef struct s_pipe
 	int			fd_in;
 	int			fd_out;
 	char		**line;
-	// int			result;
 	char		*error;
 	t_pipe		*next;
 }	t_pipe;
 
 typedef struct s_all
 {
-	// int			exit;
 	int			fds[2];
 	int			exit_status;
-	// int			is_heredoc;
 	t_sl_list	*env;
 	t_pipe		*pipes;
-	// char		**args;
 }	t_all;
 
 //parsing
@@ -86,4 +89,5 @@ void	ft_unset(char **line, t_sl_list *env);
 int		ft_to_file(t_redir *redir, int *fd, int flag, int need_dup);
 int		read_from_file(t_redir *redir, int *fd, int need_dup);
 int		execute_build(t_pipe *pipe);
+void	ft_error_exit(char *error, char *cmd);
 #endif //MINISHELL_H

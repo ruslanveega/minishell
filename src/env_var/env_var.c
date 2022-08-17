@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Abdu-Rashid <Abdu-Rashid@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:59:47 by cdell             #+#    #+#             */
-/*   Updated: 2022/07/24 01:00:51 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/07/30 22:51:19 by Abdu-Rashid      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 size_t	ft_strlen_plus(const char *str, char c)
 {
@@ -22,29 +22,16 @@ size_t	ft_strlen_plus(const char *str, char c)
 	return (length);
 }
 
-static void print_env_list(t_sl_list *env_var_list)
+t_list	*get_env_var(char *env[])
 {
-	if (!env_var_list)
-	{
-		printf("ENV var list is empty\n");
-		exit(EXIT_FAILURE);
-	}
-	while (env_var_list)
-	{
-		printf("%s%s\n", (char *)env_var_list->key, (char *)env_var_list->value);
-		env_var_list = env_var_list->next;
-	}
-}
-
-t_sl_list	*get_env_var(char *env[])
-{
-	int			i;
-	size_t		size[2];
-	t_sl_list	*env_var_list;
+	int i;
+	size_t size[2];
+	t_list	*env_var_list;
 	char *key;
 	char *value;
 
 	i = 0;
+	env_var_list = NULL;
 	while (env[i])
 	{
 		size[0] = ft_strlen_plus(env[i], '=');
@@ -54,11 +41,9 @@ t_sl_list	*get_env_var(char *env[])
 		if (!key || !value)
 			ft_puterror("Failed to allocate memory in *get_env_var(char *env[]) function");
 		ft_strlcpy(key, env[i], size[0] + 1);
-		ft_strlcpy(value, env[i] + size[0], size[1] + 1);
-		lst_append_node(&env_var_list, (void *)key, (void *)value);
+		ft_strlcpy(value, env[i] + size[0] + 1, size[1] + 1);
+		append_env_var(&env_var_list, key, value);
 		i++;
 	}
-	print_env_list(env_var_list);
 	return (env_var_list);
-//	return (NULL);
 }

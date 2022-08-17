@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:23:55 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/14 22:46:21 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/16 03:01:42 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void	execute_pipe_bin(t_pipe *pipes, t_all *all)
 		dup2(pipes->fd_in, 0);
 		dup2(pipes->fd_out, 1);
 		full_path = get_full_path(pipes->command, pipes->env);
+		if (!full_path)
+			ft_error_exit("can't find command", pipes->command);
 		if (execve(full_path, pipes->line, pipes->env) == -1)
-			ft_error_exit(pipes->command);
+			ft_error_exit("can't execute command", pipes->command);
 	}
 	else
 		waitpid(pid, &all->exit_status, 0);
@@ -91,6 +93,10 @@ int	pipe_executor(t_all *all)
 		{
 			if (!execute_build(pipes))
 				execute_pipe_bin(pipes, all);
+			if (!isatty(pipes->fd_in))
+				close(pipes->fd_in);
+			if (!isatty(pipes->fd_out))
+				close(pipes->fd_out);
 		}
 		pipes = pipes->next;
 	}

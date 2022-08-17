@@ -3,29 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 01:00:40 by cdell             #+#    #+#             */
-/*   Updated: 2021/10/23 05:47:20 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/16 02:52:44 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, char const *s3)
 {
-	char	*new_str;
-	size_t	s1_length;
-	size_t	s2_length;
+	char			*s12;
+	unsigned int	i;
+	int				size;
 
-	if (s1 == (void *)0 || s2 == (void *)0)
-		return ((void *) 0);
-	s1_length = ft_strlen(s1);
-	s2_length = ft_strlen(s2);
-	new_str = malloc(sizeof(char) * s1_length + s2_length + 1);
-	if (new_str == (void *) 0)
-		return ((void *) 0);
-	ft_strlcpy(new_str, s1, s1_length + 1);
-	ft_strlcat(new_str, s2, s1_length + s2_length + 1);
-	return (new_str);
+	i = 0;
+	size = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
+	if (s1 == NULL || s2 == NULL || s3 == NULL)
+		return (NULL);
+	s12 = (char *)malloc(sizeof(char) * (size + 1));
+	if (s12 == NULL)
+		return (NULL);
+	while (*s1 != '\0')
+		s12[i++] = *s1++;
+	while (*s2 != '\0')
+		s12[i++] = *s2++;
+	while (*s3 != '\0')
+		s12[i++] = *s3++;
+	s12[i] = '\0';
+	return (s12);
 }

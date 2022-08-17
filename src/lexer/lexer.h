@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 22:44:24 by cdell             #+#    #+#             */
-/*   Updated: 2022/06/14 22:44:26 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/16 22:34:33 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_LEXER_H
 # define MINISHELL_LEXER_H
@@ -20,6 +19,12 @@
 
 typedef struct s_sl_list t_sl_list;
 
+typedef struct	s_token
+{
+	int		key;
+	char	*value;
+}	t_token;
+
 typedef enum s_token_type
 {
 	WHITE_SPACE = ' ',
@@ -27,6 +32,7 @@ typedef enum s_token_type
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '"',
 	ENV_VAR = '$',
+	EXIT_STATUS = '?',
 	REDIRECT_OUT = '>',
 	REDIRECT_IN = '<',
 	REDIRECT_APPEND = '+',
@@ -34,42 +40,30 @@ typedef enum s_token_type
 	PIPE = '|',
 	// Bonus
 	IF_AND = '&',
-	IF_OR = '?',
+	IF_OR = '_',
 	OPEN_PARAN = '(',
 	CLOSE_PARAN = ')'
 }	t_token_type;
-
-typedef struct s_token
-{
-	int 	key;
-	char	*value;
-	struct s_token	*next;
-}	t_token;
-
-typedef	enum e_result_type
-{
-	ERR,
-	OK
-}	t_result_type;
-
-typedef struct s_result
-{
-	t_result_type type;
-	void	*value;
-}	t_result;
-
-// Token linked list operations
-t_token	*lst_new_token(int key, void *value);
-void	lst_add_back_token(t_token **token_list, t_token *new_token);
-void	lst_add_token(t_token **token_list, int key, void *value);
 
 // Token utils
 int		get_redirect_token(char **str);
 int		get_quote_tk(char **str, char quote_type);
 int		get_word_token(char **str);
 int		get_space_token(char **str);
+int		get_dollar_token(char **str);
+
+// Token value utils
+char	*get_word_value(char *start, const char *end);
+char	*get_env_var_value(char *start, const char *end);
+char	*get_quotes_value(char *start, int type);
+char	*get_exit_status();
+
+// Token list handler
+void	append_token(t_list **token_list, int key, char *value);
+void	clear_node(void *token);
 
 // For TESTING purposes only (TO DELETE)
-void	print_list(t_sl_list *token_ls);
+//void	print_list(t_sl_list *token_ls);
+void	print_list(t_list *token_ls);
 
 #endif //MINISHELL_LEXER_H
