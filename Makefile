@@ -42,7 +42,9 @@ SRCS	=	src/main.c\
 			src/executor/exec_utils.c\
 			src/executor/executor.c\
 			src/executor/pipe_execution.c\
-			src/signals.c
+			src/signals.c\
+			src/error.c\
+			src/shlvl.c
 
 
 

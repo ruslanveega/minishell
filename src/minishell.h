@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 04:28:29 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/19 21:58:24 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_error
 	char	*code;
 	char	*token;
 	int		exit;
+	int		exit_status;
 }	t_error;
 
 // typedef struct	s_result
