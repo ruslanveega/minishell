@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 19:04:20 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/17 04:40:04 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/07 19:04:26 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void *join_strs(void *current, void *next)
 
 	t1 = (t_token *)current;
 	t2 = (t_token *)next;
-	joined_str = ft_strjoin(t1->value, t2->value, "");
+	joined_str = ft_strjoin(t1->value, t2->value);
 	return (joined_str);
 }
 
@@ -56,7 +56,7 @@ static void	join_tokens(t_list *token_list)
 			token->value = joined_str;
 		}
 		token_list->next = tmp->next;
-		clear_node(tmp->content);
+		clear_token(tmp->content);
 		free(tmp);
 	}
 }

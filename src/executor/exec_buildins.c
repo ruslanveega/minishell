@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:26:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/14 20:23:28 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/17 22:21:15 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	execute_build(t_pipe *pipe)
 	else if (pipe->command == "unset")
 		ft_unset(pipe->line, pipe->env);
 	else
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }

@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/13 23:19:22 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/18 23:51:02 by fcassand         ###   ########.fr       */
+/*   Created: 2022/08/18 00:02:14 by fcassand          #+#    #+#             */
+/*   Updated: 2022/08/19 03:34:28 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	ft_exit()
+void	make_heredoc(t_pipe *pipe, t_redir *redir)
 {
-	exit(1);
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+		ft_puterror("fork error");
+	if (pid == 0)
+	{
+		
+	}
 }

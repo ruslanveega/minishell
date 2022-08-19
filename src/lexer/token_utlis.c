@@ -60,6 +60,7 @@ int	get_quote_tk(char **str, char quote_type)
 	while (**str && **str != quote_type)
 		(*str)++;
 	if (**str == 0)
+		// TODO: implement error handling mechanism
 		ft_puterror("Unclosed QUOTE");
 	(*str)++;
 	return (token);
@@ -77,8 +78,8 @@ int	get_redirect_token(char **str)
 			token = REDIRECT_APPEND;
 			(*str) += 1;
 		}
-		else if (*(*str + 1) == '<')
-			ft_puterror("syntax error near unexpected token '<'");
+//		else if (*(*str + 1) == '<')
+//			ft_puterror("syntax error near unexpected token '<'");
 	}
 	else if (**str == '<')
 	{

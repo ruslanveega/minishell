@@ -28,25 +28,20 @@ static void	print_error_message(int key)
 
 static void evaluate_redirect(t_list *token_list)
 {
-	t_token	*current;
-	t_token	*next;
-
 	if (!token_list)
 		return;
 	while (token_list)
 	{
-		current = (t_token *)token_list->content;
-		if (is_redirect(current->key))
+		if (is_redirect(get_token_key(token_list)))
 		{
 			if (!token_list->next)
 			{
 				printf("bash: syntax error near unexpected token \'newline\'\n");
 				exit(1);
 			}
-			next = (t_token *)token_list->next->content;
-			if (next->key != WORD)
+			if (get_token_key(token_list->next) != WORD)
 			{
-				print_error_message(next->key);
+				print_error_message(get_token_key(token_list->next));
 				exit(1);
 			}
 		}
@@ -56,29 +51,24 @@ static void evaluate_redirect(t_list *token_list)
 
 static void evaluate_pipes(t_list *token_list)
 {
-	t_token	*current;
-	t_token	*next;
-
 	if (!token_list)
 		return;
-	current = (t_token *)token_list->content;
-	if (current->key == PIPE)
+	if (get_token_key(token_list) == PIPE)
 	{
 		printf("bash: syntax error near unexpected token \'|\'\n");
 		exit(1);
 	}
 	while (token_list->next)
 	{
-		current = (t_token *)token_list->content;
-		next = (t_token *)token_list->next->content;
-		if (current->key == PIPE && next->key == PIPE)
+		if (get_token_key(token_list) == PIPE
+		&& get_token_key(token_list->next) == PIPE)
 		{
 			printf("bash: syntax error near unexpected token \'|\'\n");
 			exit(1);
 		}
 		token_list = token_list->next;
 	}
-	if (token_list->next && next->key == PIPE)
+	if (get_token_key(token_list) == PIPE)
 	{
 		printf("bash: syntax error near unexpected token \'|\'\n");
 		exit(1);

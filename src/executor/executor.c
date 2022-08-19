@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/17 04:47:30 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/17 22:21:22 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	execute_single(t_all *all)
 	if (all->pipes->command)
 	{
 		if (execute_build(all->pipes))
-			return ;
-		else
 			execute_bin(all->pipes);
 	}
 	// else

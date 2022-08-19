@@ -21,14 +21,16 @@ static void nullify(t_list **redirect_list, char ***cmd_options, int *index)
 
 static void add_redirect_node(t_list *token_list, t_list **redirect_list)
 {
-	t_redirect *redirect;
-	t_list *new_node;
+	t_token	*token;
+	int		key;
+	char	*value;
 
-	redirect = process_redirect(token_list);
-	new_node = ft_lstnew((void *)redirect);
-	if (!new_node)
-		ft_puterror("Could not allocate memory in parser.c->get_cmd_list");
-	ft_lstadd_back(redirect_list, new_node);
+	key = get_token_key(token_list);
+	token = (t_token *)token_list->next->content;
+	value = ft_strdup(token->value);
+	if (!value)
+		ft_puterror("Could not allocate memory for string in cmd_processing.c->process_redirect_");
+	append_redirect(redirect_list, key, value);
 }
 
 static int get_arr_size(t_list *token_list)
@@ -72,9 +74,9 @@ void get_cmd_list(t_cmd_list **cmd_list, t_list *token_list)
 
 	while (token_list)
 	{
-		//		redirect_list = NULL;
-		//		cmd_options = NULL;
-		//		index = 0;
+//		redirect_list = NULL;
+//		cmd_options = NULL;
+//		index = 0;
 		nullify(&redirect_list, &cmd_options, &index);
 		cmd_options = (char **)malloc(sizeof(char *) * get_arr_size(token_list) + 1);
 		while (token_list && get_token_key(token_list) != PIPE)
@@ -89,7 +91,7 @@ void get_cmd_list(t_cmd_list **cmd_list, t_list *token_list)
 			token_list = token_list->next;
 		}
 		cmd_options[index] = NULL;
-		add_cmd(cmd_list, redirect_list, cmd_options);
+		append_cmd(cmd_list, redirect_list, cmd_options);
 		if (token_list)
 			token_list = token_list->next;
 	}

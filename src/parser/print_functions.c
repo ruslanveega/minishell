@@ -40,11 +40,11 @@ void print_redirect_list(t_list *list)
 {
 	t_redirect *node;
 
-	if (!list)
-	{
-		printf("ENV var list is empty\n");
-		exit(EXIT_FAILURE);
-	}
+//	if (!list)
+//	{
+//		printf("redirect_list var list is empty\n");
+//		exit(EXIT_FAILURE);
+//	}
 	while (list)
 	{
 		node = (t_redirect *)list->content;

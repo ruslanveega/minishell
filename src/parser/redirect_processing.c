@@ -12,45 +12,53 @@
 
 #include "parser.h"
 
-t_redirect	*process_redirect(t_list *token_list)
-{
-	t_redirect	*redirect;
-	t_token		*token;
+//static char	*get_redirect_value(t_list *token_list)
+//{
+//	t_token	*token;
+//	char	*file;
+//
+//	token = (t_token *)token_list->next->content;
+//	file = ft_strdup(token->value);
+//	if (!file)
+//		ft_puterror("Failed to allocate memory for redirection in [redirect_processing.c->process_redirect]");
+//	return (file);
+//}
 
-	redirect = (t_redirect *)malloc(sizeof(t_redirect));
-	if (!redirect)
-		ft_puterror("Failed to allocate memory for redirection in [redirect_processing.c->process_redirect]");
-	token = (t_token *)token_list->content;
-	if (token->key == REDIRECT_IN)
-		redirect->type = REDIRECT_IN;
-	else if (token->key == REDIRECT_OUT)
-		redirect->type = REDIRECT_OUT;
-	else if (token->key == REDIRECT_APPEND)
-		redirect->type = REDIRECT_APPEND;
-	else if (token->key == REDIRECT_HEREDOC)
-		redirect->type = REDIRECT_HEREDOC;
-	token = (t_token *)token_list->next->content;
-	redirect->file = token->value;
-	token = NULL;
-	return (redirect);
+static t_redirect	*create_new_redirect(int type, char *file)
+{
+	t_redirect	*node;
+
+	node = NULL;
+	node = (t_redirect *)malloc(sizeof (t_redirect));
+	if (!node)
+		ft_puterror("Failed to allocate memory for redirect in redirect_processing.c->create_new_redirect");
+	node->type = type;
+	node->file = file;
+	return (node);
 }
 
-//t_redirect *process_redirect(t_sl_list *token_list)
+//t_redirect *get_redirect(t_list *token_list)
 //{
-//	// TODO: depending on the type of the token, return file name or stop word for HEREDOC
 //	t_redirect	*redirect;
+//	char		*file;
 //
 //	redirect = (t_redirect *)malloc(sizeof(t_redirect));
 //	if (!redirect)
 //		ft_puterror("Failed to allocate memory for redirection in [redirect_processing.c->process_redirect]");
-//	if (token_list->key == (void *)REDIRECT_IN)
-//		redirect->type = REDIRECT_IN;
-//	else if (token_list->key == (void *)REDIRECT_OUT)
-//		redirect->type = REDIRECT_OUT;
-//	else if (token_list->key == (void *)REDIRECT_APPEND)
-//		redirect->type = REDIRECT_APPEND;
-//	else if (token_list->key == (void *)REDIRECT_HEREDOC)
-//		redirect->type = REDIRECT_HEREDOC;
-//	redirect->file = (char *)token_list->next->value;
+//	redirect->type = get_token_key(token_list);
+//	file = get_redirect_value(token_list);
+//	redirect->file = file;
 //	return (redirect);
 //}
+
+void append_redirect(t_list **redirect_list, int type, char *value)
+{
+	t_redirect *redirect;
+	t_list *new_node;
+
+	redirect = create_new_redirect(type, value);
+	new_node = ft_lstnew((void *)redirect);
+	if (!new_node)
+		ft_puterror("Could not allocate memory in parser.c->get_cmd_list");
+	ft_lstadd_back(redirect_list, new_node);
+}

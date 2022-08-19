@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:23:55 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/17 04:46:16 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/18 23:36:53 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@ int	choose_out_in(t_pipe *pipes, t_redir *redir)
 			if (ft_to_file(redir, &pipes->fd_out, TRUE, FALSE))
 				return (error_exit());
 		else if (redir->type == REDIRECT_APPEND)
-			if (ft_to_file(redir, &pipes->fd_out, TRUE, FALSE))
+			if (ft_to_file(redir, &pipes->fd_out, FALSE, FALSE))
 				return (error_exit());
 		else if (redir->type == REDIRECT_IN)
 			if (read_from_file(redir, &pipes->fd_in, FALSE))
 				return (error_exit());
 		else if (redir->type == REDIRECT_HEREDOC)
-			if (make_heredoc(pipes, redir))
-				return (error_exit());
+			// if (make_heredoc(pipes, redir))
+			// 	return (error_exit());
 		redir = redir->next;
 	}
 	return (0);
 }
 
-int	make_pipes(t_pipe	*pipes)
+int	make_pipes(t_pipe *pipes)
 {
 	t_pipe	*tmp_pipe;
 	int		pipe_fd[2];
@@ -64,17 +64,17 @@ int	make_pipes(t_pipe	*pipes)
 	if (pipe(pipe_fd) < 0)
 		return (ft_puterror("can't create new pipe"));
 	tmp_pipe->fd_in = STDIN_FILENO;
-	tmp_pipe->fd_out = pipe_fd[0];
+	tmp_pipe->fd_out = pipe_fd[1];
 	tmp_pipe = tmp_pipe->next;
 	while (tmp_pipe->next)
 	{
+		tmp_pipe->fd_in = pipe_fd[0];
 		if (pipe(pipe_fd) < 0)
 			return (ft_puterror("can't create new pipe"));
-		tmp_pipe->fd_in = pipe_fd[0];
 		tmp_pipe->fd_out = pipe_fd[1];
 		tmp_pipe = tmp_pipe->next;
 	}
-	tmp_pipe->fd_in = pipe_fd[1];
+	tmp_pipe->fd_in = pipe_fd[0];
 	tmp_pipe->fd_out = STDOUT_FILENO;
 	return (0);
 }
@@ -91,7 +91,7 @@ int	pipe_executor(t_all *all)
 			choose_out_in(pipes, pipes->redir);
 		if (pipes->command)
 		{
-			if (!execute_build(pipes))
+			if (execute_build(pipes))
 				execute_pipe_bin(pipes, all);
 			if (!isatty(pipes->fd_in))
 				close(pipes->fd_in);

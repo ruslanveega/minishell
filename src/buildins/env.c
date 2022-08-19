@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:25 by fcassand          #+#    #+#             */
-/*   Updated: 2022/07/22 03:24:18 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/18 23:43:49 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 void	ft_env(t_sl_list *env, int declare)
 {
-	t_sl_list	*tmp_env;
-
-	tmp_env = env;
-	while (tmp_env != NULL)
-	{
-		if (tmp_env->key != NULL)
-		{
-			if (declare)
-				printf("declare -x %s=%s\n", tmp_env->key, tmp_env->value);
-			else
-				printf("%s=%s\n", tmp_env->key, tmp_env->value);
-		}
-		tmp_env = tmp_env->next;
-	}
 	if (env == NULL)
 		env_error();
+	while (env != NULL)
+	{
+		if (env->key)
+		{
+			if (declare)
+				printf("declare -x %s=%s\n", env->key, env->value);
+			else
+				printf("%s=%s\n", env->key, env->value);
+		}
+		env = env->next;
+	}
+
 }

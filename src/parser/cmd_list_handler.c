@@ -59,7 +59,7 @@ void	clear_cmd_list(t_cmd_list **list)
 	{
 		tmp = *list;
 		*list = (*list)->next;
-		ft_lstclear(&tmp->redirect, clear_node);
+		ft_lstclear(&tmp->redirect, clear_token);
 		clear_array(tmp->cmd_options);
 		free(tmp);
 		tmp = NULL;
@@ -67,7 +67,7 @@ void	clear_cmd_list(t_cmd_list **list)
 	list = NULL;
 }
 
-void	add_cmd(t_cmd_list **cmd_list, t_list *redirect, char *cmd_options[])
+void	append_cmd(t_cmd_list **cmd_list, t_list *redirect, char *cmd_options[])
 {
 	t_cmd_list	*cmd;
 

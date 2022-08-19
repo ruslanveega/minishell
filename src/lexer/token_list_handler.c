@@ -25,7 +25,7 @@ static t_token	*create_new_token(int key, char *value)
 	return (node);
 }
 
-void	clear_node(void *token)
+void	clear_token(void *token)
 {
 	t_token	*t;
 

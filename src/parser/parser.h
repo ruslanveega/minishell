@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 06:50:35 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/17 04:41:50 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/11 06:50:41 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct	s_str_chunk
 
 typedef struct s_cmd_list
 {
-	char				**cmd_options;
-	t_list				*redirect;
+	char **cmd_options;
+	t_list	*redirect;
 	struct s_cmd_list	*next;
 } t_cmd_list;
 
@@ -60,11 +60,13 @@ void	join_token_list(t_list *token_list);
 void	evaluate_token_list(t_list *token_list);
 
 // Process redirections
+void		append_redirect(t_list **redirect_list, int type, char *value);
 t_redirect	*process_redirect(t_list *token_list);
+//t_redirect	*get_redirect(t_list *token_list);
 
 // Process commands
 void	get_cmd_list(t_cmd_list **cmd_list, t_list *token_list);
-void	add_cmd(t_cmd_list **cmd_list, t_list *redirect, char *cmd_options[]);
+void	append_cmd(t_cmd_list **cmd_list, t_list *redirect, char *cmd_options[]);
 
 // Clear command list
 void	*clear_array(char **arr);

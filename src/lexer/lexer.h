@@ -60,7 +60,7 @@ char	*get_exit_status();
 
 // Token list handler
 void	append_token(t_list **token_list, int key, char *value);
-void	clear_node(void *token);
+void	clear_token(void *token);
 
 // For TESTING purposes only (TO DELETE)
 //void	print_list(t_sl_list *token_ls);

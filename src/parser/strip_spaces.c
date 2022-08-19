@@ -26,7 +26,7 @@ void strip_space(t_list *token_list)
 			{
 				tmp = token_list->next;
 				token_list->next = token_list->next->next;
-				clear_node(tmp->content);
+				clear_token(tmp->content);
 				free(tmp);
 			}
 		}
