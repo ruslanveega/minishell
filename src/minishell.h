@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 02:35:26 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/19 04:28:29 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ typedef enum e_result_type
 
 typedef struct s_error
 {
-	int		code;
-	char	*error_argument;
+	char	*code;
+	char	*token;
+	int		exit;
 }	t_error;
 
 // typedef struct	s_result
@@ -76,7 +77,7 @@ typedef struct s_redir
 
 typedef struct s_pipe
 {
-	t_sl_list				*env;
+	t_sl_list			*env;
 	t_list				*redir;
 	char				*command;
 	int					fd_in;
@@ -92,8 +93,9 @@ typedef struct s_all
 	int			exit_status;
 	t_sl_list	*env;
 	t_pipe		*pipes;
-	t_error		*err_st;
 }	t_all;
+
+t_error	*err_str;
 
 
 //CDELL
@@ -134,6 +136,7 @@ int		num_args(char **line);
 size_t	ft_substr_len(const char *start, const char *end);
 //int		is_redirect(size_t key);
 int		is_redirect(int key);
+int		print_error(void);
 
 // Singly linked list operations
 void	lst_append_node(t_sl_list **list, void *key, void *value);
@@ -181,4 +184,11 @@ int		choose_out_in(t_pipe *pipes, t_redir *redir);
 void	execute_pipe_bin(t_pipe *pipes, t_all *all);
 void	init_signals(void);
 int		signal_sigint(int sig);
+
+void	incr_shlvl(t_all *all, int incr);
+
+//signals
+void	init_signals(void);
+int		signal_sigint(int sig);
+
 #endif //MINISHELL_H

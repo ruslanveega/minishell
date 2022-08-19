@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/17 22:21:22 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/19 03:57:00 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ void	start_executor(t_all *all)
 {
 	if (all->pipes->next)
 		pipe_executor(all);
+	else if (ft_strcmp(all->pipes->command, "minishell") == 0 && \
+		!(all->pipes->line[1]))
+		incr_shlvl(all, 1);
 	else
 		execute_single(all);
 }
