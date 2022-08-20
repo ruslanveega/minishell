@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/21 00:02:36 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/21 01:11:58 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ typedef struct s_pipe
 
 typedef struct s_all
 {
-	int			fds[2];
-	int			exit_status;
 	t_sl_list	*env;
 	t_pipe		*pipes;
 }	t_all;
@@ -167,13 +165,15 @@ int		pipe_executor(t_all *all);
 int		make_pipes(t_pipe *pipes);
 int		choose_out_in(t_pipe *pipes, t_redir *redir);
 void	execute_pipe_bin(t_pipe *pipes, t_all *all);
-void	init_signals(void);
-int		signal_sigint(int sig);
+int		make_heredoc(t_pipe *pipe, t_redir *redir);
 
 void	incr_shlvl(t_all *all, int incr);
 
 //signals
 void	init_signals(void);
 int		signal_sigint(int sig);
+
+int		init_err(char *code, char *token, int exit, int exit_status);
+int		print_error(void);
 
 #endif //MINISHELL_H

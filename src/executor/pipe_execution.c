@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:23:55 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/18 23:36:53 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/21 01:12:41 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	execute_pipe_bin(t_pipe *pipes, t_all *all)
 			ft_error_exit("can't execute command", pipes->command);
 	}
 	else
-		waitpid(pid, &all->exit_status, 0);
+		waitpid(pid, &err_str->exit_status, 0);
 }
 
 int	choose_out_in(t_pipe *pipes, t_redir *redir)
@@ -48,8 +48,8 @@ int	choose_out_in(t_pipe *pipes, t_redir *redir)
 			if (read_from_file(redir, &pipes->fd_in, FALSE))
 				return (error_exit());
 		else if (redir->type == REDIRECT_HEREDOC)
-			// if (make_heredoc(pipes, redir))
-			// 	return (error_exit());
+			if (make_heredoc(pipes, redir))
+				return (error_exit());
 		redir = redir->next;
 	}
 	return (0);
@@ -88,7 +88,8 @@ int	pipe_executor(t_all *all)
 	while (pipes)
 	{
 		if (pipes->redir)
-			choose_out_in(pipes, pipes->redir);
+			if(choose_out_in(pipes, pipes->redir))
+				return (1);
 		if (pipes->command)
 		{
 			if (execute_build(pipes))

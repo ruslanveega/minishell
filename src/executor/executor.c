@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/19 03:57:00 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/21 01:15:19 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 int	file_execution(t_all *all)
 {
 	t_redir	*redir;
+	t_pipe	*tmp_pipe;
 
-	all->fds[0] = 0;
-	all->fds[1] = 1;
-	redir = all->pipes->redir;
+	tmp_pipe = all->pipes;
+	redir = tmp_pipe->redir;
 	while (redir != NULL)
 	{
 		if (redir->type == REDIRECT_OUT)
-			if (ft_to_file(redir, &all->fds[1], TRUE, TRUE))
+			if (ft_to_file(redir, &tmp_pipe->fd_out, TRUE, TRUE))
 				return (1);
 		else if (redir->type == REDIRECT_APPEND)
-			if (ft_to_file(redir, &all->fds[1], FALSE, TRUE))
+			if (ft_to_file(redir, &tmp_pipe->fd_in, FALSE, TRUE))
 				return (1);
 		else if (redir->type == REDIRECT_IN)
-			if (read_from_file(redir, &all->fds[0], TRUE))
+			if (read_from_file(redir, &tmp_pipe->fd_in, TRUE))
 				return (1);
 		else if (redir->type == REDIRECT_HEREDOC)
 			if (make_heredoc(all->pipes, redir))
-				return (error_exit());
+				return (1);
 		redir = redir->next;
 	}
 	return (0);
@@ -56,9 +56,10 @@ void	execute_bin(t_pipe *pipe)
 
 void	execute_single(t_all *all)
 {
+	make_pipes(all->pipes);
 	if (all->pipes->redir)
 		if (file_execution(all))
-			return (ft_puterror(""));
+			return ;
 	if (all->pipes->command)
 	{
 		if (execute_build(all->pipes))

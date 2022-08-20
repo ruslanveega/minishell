@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:59:47 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/18 23:54:24 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/21 01:00:31 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,5 @@ t_sl_list	*get_env_var(char *env[])
 		lst_append_node(&env_var_list, (void *)key, (void *)value);
 		i++;
 	}
-	// print_env_list(env_var_list);
 	return (env_var_list);
 }

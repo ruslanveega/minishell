@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:01:56 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/21 00:09:30 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/21 01:20:59 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	mini_loop(t_all *all, t_sl_list *env)
 	{
 		free_line_and_pipe(all->pipes, line);
 		if (err_str->code == MEM_ERR)
-			return ;
+			break ;
 		line = readline("minishell$");
 		add_history(line);
 		cmd_list = parse_input(line);
@@ -80,7 +80,6 @@ int	main(int argc, char *argv[], char *envp[])
 	if (!all)
 		err_str->code = MEM_ERR;
 	all->env = get_env_var(envp);
-	all->exit_status = 0;
 	all->pipes = NULL;
 	incr_shlvl(all->env, 1);
 	mini_loop(all, all->env);

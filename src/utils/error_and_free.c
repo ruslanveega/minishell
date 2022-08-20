@@ -6,11 +6,11 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 03:57:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/21 00:07:16 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/21 01:01:16 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_line_and_pipe(t_all * all, char *line)
 {
@@ -22,7 +22,7 @@ void	free_all_and_env(t_all *all, t_sl_list *env)
 
 }
 
-void	init_err(char *code, char *token, int exit, int exit_status)
+int	init_err(char *code, char *token, int exit, int exit_status)
 {
 	if (code)
 		err_str->code = code;
@@ -32,6 +32,7 @@ void	init_err(char *code, char *token, int exit, int exit_status)
 		err_str->exit = exit;
 	if (exit_status)
 		err_str->exit_status = exit_status;
+	return (1);
 }
 
 int	print_error(void)
