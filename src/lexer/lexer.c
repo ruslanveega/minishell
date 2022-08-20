@@ -68,6 +68,11 @@ void	build_token_list(char **line, t_list **token_list)
 	{
 		token_value = NULL;
 		token_key = get_token_key(line, &t_start, &t_end);
+		if (token_key == 0)
+		{
+			ft_lstclear(token_list, clear_token);
+			return ;
+		}
 		if (token_key == WORD || token_key == ENV_VAR
 			|| token_key == SINGLE_QUOTE || token_key == DOUBLE_QUOTE
 			|| token_key == EXIT_STATUS)

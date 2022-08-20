@@ -12,9 +12,9 @@
 
 #include "parser.h"
 
-void *clear_array(char **arr)
+void	*clear_array(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arr[i])

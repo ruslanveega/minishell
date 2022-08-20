@@ -6,7 +6,7 @@
 /*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 22:33:41 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/16 22:33:43 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/19 17:37:34 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	clear_str_chunk(void *str_chunk)
 	chunk = NULL;
 }
 
-void append_chunk(t_list **token_list, size_t length, char *chunk)
+void	append_chunk(t_list **token_list, size_t length, char *chunk)
 {
 	t_str_chunk	*st_chunk_node;
-	t_list	*new_node;
+	t_list		*new_node;
 
 	st_chunk_node = create_new_chunk(length, chunk);
 	new_node = ft_lstnew((void *)st_chunk_node);

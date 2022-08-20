@@ -6,13 +6,13 @@
 /*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:13:46 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/12 09:13:47 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/19 17:39:37 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static void expand_db_quotes(t_token *db_quotes_node)
+static void	expand_db_quotes(t_token *db_quotes_node)
 {
 	char	*str;
 

@@ -6,16 +6,16 @@
 /*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 16:18:24 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/12 16:18:25 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/19 17:37:59 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void strip_space(t_list *token_list)
+void	strip_space(t_list *token_list)
 {
 	t_list	*tmp;
-	t_token		*next;
+	t_token	*next;
 
 	while (token_list)
 	{

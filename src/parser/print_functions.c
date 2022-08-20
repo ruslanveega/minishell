@@ -6,16 +6,17 @@
 /*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 22:33:29 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/16 22:33:32 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/19 17:35:33 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void print_options(char *str[])
+void	print_options(char *str[])
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (str[i])
 	{
 		printf("command = %s\n", str[i]);
@@ -23,7 +24,7 @@ void print_options(char *str[])
 	}
 }
 
-static void print_node(t_redirect *node)
+static void	print_node(t_redirect *node)
 {
 	if (node->type == REDIRECT_IN)
 		printf("redirect type = <\t");
@@ -36,15 +37,10 @@ static void print_node(t_redirect *node)
 	printf("file = %s\n", node->file);
 }
 
-void print_redirect_list(t_list *list)
+void	print_redirect_list(t_list *list)
 {
-	t_redirect *node;
+	t_redirect	*node;
 
-//	if (!list)
-//	{
-//		printf("redirect_list var list is empty\n");
-//		exit(EXIT_FAILURE);
-//	}
 	while (list)
 	{
 		node = (t_redirect *)list->content;
@@ -53,7 +49,7 @@ void print_redirect_list(t_list *list)
 	}
 }
 
-void print_cmd_list(t_cmd_list *cmd_list)
+void	print_cmd_list(t_cmd_list *cmd_list)
 {
 	if (!cmd_list)
 		printf("not cmd_list\n");

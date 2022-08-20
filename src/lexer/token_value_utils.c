@@ -6,7 +6,7 @@
 /*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 06:44:32 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/09 06:44:33 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/19 16:21:46 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ char	*get_word_value(char *start, const char *end)
 	return (str);
 }
 
-static int	get_status()
+static int	get_status(void)
 {
 	return (0);
 }
 
-char	*get_exit_status()
+char	*get_exit_status(void)
 {
 	char	*str;
 

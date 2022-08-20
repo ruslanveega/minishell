@@ -6,20 +6,20 @@
 /*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 22:44:24 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/16 22:34:33 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/19 17:43:28 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_LEXER_H
-# define MINISHELL_LEXER_H
+#ifndef LEXER_H
+# define LEXER_H
 
 # include "../minishell.h"
 # define WHITE_SPACE_CHARS " \t\n\v\f\r"
 # define TOKENS "'\"<|>()$&"
 
-typedef struct s_sl_list t_sl_list;
+typedef struct s_sl_list	t_sl_list;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	int		key;
 	char	*value;
@@ -38,7 +38,6 @@ typedef enum s_token_type
 	REDIRECT_APPEND = '+',
 	REDIRECT_HEREDOC = '-',
 	PIPE = '|',
-	// Bonus
 	IF_AND = '&',
 	IF_OR = '_',
 	OPEN_PARAN = '(',
@@ -56,7 +55,7 @@ int		get_dollar_token(char **str);
 char	*get_word_value(char *start, const char *end);
 char	*get_env_var_value(char *start, const char *end);
 char	*get_quotes_value(char *start, int type);
-char	*get_exit_status();
+char	*get_exit_status(void);
 
 // Token list handler
 void	append_token(t_list **token_list, int key, char *value);
@@ -66,4 +65,4 @@ void	clear_token(void *token);
 //void	print_list(t_sl_list *token_ls);
 void	print_list(t_list *token_ls);
 
-#endif //MINISHELL_LEXER_H
+#endif //LEXER_H

@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 21:58:24 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/21 00:02:36 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,6 @@ typedef struct s_error
 	int		exit_status;
 }	t_error;
 
-// typedef struct	s_result
-// {
-// 	t_result_type type;
-// 	void *result;
-// }	t_result;
-
 typedef struct s_env_var
 {
 	char	*key;
@@ -103,7 +97,6 @@ t_error	*err_str;
 // Utils
 int		ft_puterror(char *msg);
 size_t	ft_substr_len(const char *start, const char *end);
-//int		is_redirect(size_t key);
 int		is_redirect(int key);
 
 // Singly linked list operations
@@ -111,59 +104,50 @@ void	lst_append_node(t_sl_list **list, void *key, void *value);
 void	lst_clear(t_sl_list **list);
 
 // Env var setup
-//t_sl_list	*get_env_var(char *env[]);
 t_sl_list	*get_env_var(char *env[]);
-void	append_env_var(t_list **env_var_list, char *key, char *value);
-void	clear_env_var(t_env_var *env_var_node);
-// Env var utils
-// char	*get_env_key(t_list *env_var);
-// char	*get_env_value(t_list *env_var);
+void		append_env_var(t_list **env_var_list, char *key, char *value);
+void		clear_env_var(t_env_var *env_var_node);
 
 // Lexer
 t_list	*get_token_list(char *line);
 
 // Parser
-//t_cmd_list	*parse_input(t_list **token_list);
 t_cmd_list	*parse_input(char *line);
-void	clear_cmd_list(t_cmd_list **list);
-
-// Printing
-void print_cmd_list(t_cmd_list *cmd_list);
+void		clear_cmd_list(t_cmd_list **list);
 
 
 //utils
 int		ft_strcmp(const char *s1, const char *s2);
 int		num_args(char **line);
 size_t	ft_substr_len(const char *start, const char *end);
-//int		is_redirect(size_t key);
 int		is_redirect(int key);
 int		print_error(void);
+void	free_all_and_env(t_all *all, t_sl_list *env);
+
 
 // Singly linked list operations
 void	lst_append_node(t_sl_list **list, void *key, void *value);
 void	lst_clear(t_sl_list **list);
 
 
-
-
 //buidins
-void	ft_cd(char **line, t_sl_list *env);
-int		to_home_or_prev_dir(t_sl_list *env, int old_or_home);
-char	*env_path(t_sl_list *env, char *key, int num_sym);
-int		update_pwd(t_sl_list *env, char *key, char *path, int num_sym);
-int		ft_strcmp(const char *s1, const char *s2);
-void	ft_exit();
-int		echo(char **line);
-void	ft_env(t_sl_list *env, int declare);
-void	ft_export(char **line, t_sl_list *env);
+void		ft_cd(char **line, t_sl_list *env);
+int			to_home_or_prev_dir(t_sl_list *env, int old_or_home);
+char		*env_path(t_sl_list *env, char *key, int num_sym);
+int			update_pwd(t_sl_list *env, char *key, char *path, int num_sym);
+int			ft_strcmp(const char *s1, const char *s2);
+void		ft_exit();
+int			echo(char **line);
+void		ft_env(t_sl_list *env, int declare);
+void		ft_export(char **line, t_sl_list *env);
 t_sl_list	*valid_env(char *line);
-void	env_add_back(t_sl_list *env, t_sl_list *new_env);
-void	*export_error(char *error, char *line);
-void	ft_pwd(t_sl_list *env);
-void	ft_unset(char **line, t_sl_list *env);
-int		num_args(char **line);
-void	del_env(char *key, t_sl_list *env, int len);
-void	free_env(t_sl_list *env);
+void		env_add_back(t_sl_list *env, t_sl_list *new_env);
+void		*export_error(char *error, char *line);
+void		ft_pwd(t_sl_list *env);
+void		ft_unset(char **line, t_sl_list *env);
+int			num_args(char **line);
+void		del_env(char *key, t_sl_list *env, int len);
+void		free_env(t_sl_list *env);
 
 
 

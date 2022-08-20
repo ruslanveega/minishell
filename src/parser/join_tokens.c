@@ -6,7 +6,7 @@
 /*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 19:04:20 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/07 19:04:26 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/19 16:59:23 by cdell            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	should_join(int key)
 {
-	if (key == WORD || key == SINGLE_QUOTE || key == DOUBLE_QUOTE ||
-		key == ENV_VAR || key == EXIT_STATUS)
+	if (key == WORD || key == SINGLE_QUOTE || key == DOUBLE_QUOTE
+		|| key == ENV_VAR || key == EXIT_STATUS)
 		return (1);
 	return (0);
 }
@@ -27,7 +27,7 @@ int	should_join(int key)
 //	return (0);
 //}
 
-static void *join_strs(void *current, void *next)
+static void	*join_strs(void *current, void *next)
 {
 	t_token	*t1;
 	t_token	*t2;
@@ -61,7 +61,7 @@ static void	join_tokens(t_list *token_list)
 	}
 }
 
-void join_token_list(t_list *token_list)
+void	join_token_list(t_list *token_list)
 {
 	t_token	*token;
 	t_token	*next;
