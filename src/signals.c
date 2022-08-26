@@ -6,18 +6,15 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 23:54:31 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/21 04:00:46 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/26 03:05:06 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	handler_readline_heredoc(int sig)
+int	handler_heredoc(int sig)
 {
-	// (void)sig;
-	// if (!g_shell->buffer)
-	// 	free(g_shell->buffer);
-	// g_shell->buffer = NULL;
+	(void)sig;
 	ft_putendl_fd("", 1);
 	rl_on_new_line();
 	exit(1);
@@ -38,6 +35,6 @@ int	signal_sigint(int sig)
 
 void	init_signals(void)
 {
-	signal(SIGINT, (void *)&signal_sigint);
+	signal(SIGINT, &signal_sigint);
 	signal(SIGQUIT, SIG_IGN);
 }

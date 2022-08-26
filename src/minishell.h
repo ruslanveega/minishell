@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/21 01:11:58 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/27 02:45:17 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # define ERR_CMD_NOT_FOUND "command not found"
 # define MEM_ERR "memory allocation error"
 # define SYN_ERR "syntax error near unexpected token"
+# define TO_MANY "to many arguments"
+# define NUM_ARG "numeric argument required"
+
 
 typedef struct s_sl_list
 {
@@ -134,7 +137,7 @@ int			to_home_or_prev_dir(t_sl_list *env, int old_or_home);
 char		*env_path(t_sl_list *env, char *key, int num_sym);
 int			update_pwd(t_sl_list *env, char *key, char *path, int num_sym);
 int			ft_strcmp(const char *s1, const char *s2);
-void		ft_exit();
+int			ft_exit(t_pipe *pipes);
 int			echo(char **line);
 void		ft_env(t_sl_list *env, int declare);
 void		ft_export(char **line, t_sl_list *env);
@@ -172,6 +175,7 @@ void	incr_shlvl(t_all *all, int incr);
 //signals
 void	init_signals(void);
 int		signal_sigint(int sig);
+int		handler_heredoc(int sig);
 
 int		init_err(char *code, char *token, int exit, int exit_status);
 int		print_error(void);

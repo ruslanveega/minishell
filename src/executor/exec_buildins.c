@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:26:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/17 22:21:15 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/27 01:23:39 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	execute_build(t_pipe *pipe)
 	else if (pipe->command == "env")
 		ft_env(pipe->env, 0);
 	else if (pipe->command == "exit")
-		ft_exit(pipe->line);
+		ft_exit(pipe);
 	else if (pipe->command == "export")
 		ft_export(pipe->line, pipe->env);
 	else if (pipe->command == "pwd")

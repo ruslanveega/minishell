@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 03:57:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/21 01:01:16 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/27 01:31:35 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	print_error(void)
 	}
 	else
 	{
-		printf("minishell$ %s: %s", err_str->code, err_str->token);
+		printf("minishell$ %s: %s", err_str->token, err_str->code);
 		err_str->code = NULL;
 		err_str->token = NULL;
 		if (err_str->exit)

@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/21 01:15:19 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/27 01:09:51 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void	execute_single(t_all *all)
 		if (execute_build(all->pipes))
 			execute_bin(all->pipes);
 	}
-	// else
-	// 	not_execute(all); //cases with $ and var=
 }
 
 void	start_executor(t_all *all)

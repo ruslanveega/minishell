@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:01:56 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/21 01:20:59 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/27 01:19:44 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,14 @@ void	mini_loop(t_all *all, t_sl_list *env)
 	t_cmd_list		*cmd_list;
 
 	err_str = malloc(sizeof(t_error));
+	err_str->code = NULL;
+	err_str->exit = 0;
+	err_str->token = NULL;
+	err_str->exit_status = 0;
 	while (1)
 	{
 		free_line_and_pipe(all->pipes, line);
-		if (err_str->code == MEM_ERR)
+		if (err_str->code == MEM_ERR || err_str->exit)
 			break ;
 		line = readline("minishell$");
 		add_history(line);
@@ -71,7 +75,7 @@ void	mini_loop(t_all *all, t_sl_list *env)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_all			*all;
+	t_all	*all;
 
 	(void) argc;
 	(void) argv;
