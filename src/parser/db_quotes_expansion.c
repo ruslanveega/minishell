@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   db_quotes_expansion.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 06:36:23 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 16:54:57 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/29 04:20:36 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ static void	handle_str_chunk(t_list **db_quote_chunk, char **str)
 	length = ft_substr_len(start, end);
 	chunk = (char *)malloc(sizeof(char) * length + 1);
 	if (!chunk)
-		ft_puterror("Failed to allocate memory\
-		 in [parser.c->handle_string_chunk]");
+		init_err(MEM_ERR, "", 1, 0);
 	ft_strlcpy(chunk, start, length + 1);
 	append_chunk(db_quote_chunk, length, chunk);
 }
@@ -111,8 +110,7 @@ char	*get_str_from_db_quotes(char *db_quotes_str)
 	str_len = get_sum_of_lens(str_chunk_lst);
 	str = (char *) malloc(sizeof(char) * str_len + 1);
 	if (!str)
-		ft_puterror("Failed to allocate memory in\
-		 [parser.c->get_str_from_db_quotes]");
+		init_err(MEM_ERR, "", 1, 0);
 	tmp = str_chunk_lst;
 	str_len = 0;
 	while (tmp)

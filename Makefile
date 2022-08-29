@@ -5,16 +5,18 @@ LIBFT_DIR	=	libft/
 LIBFT_A		=	${LIBFT_DIR}libft.a
 
 SRCS	=	src/main.c\
-			src/utils/ft_puterror.c\
+			\
 			src/utils/list_ops.c\
 			src/utils/ft_substr_len.c\
+			src/utils/error_and_free.c\
+			src/utils/env_var.c\
+			\
 			src/lexer/token_list_handler.c\
-			src/env_var/env_var.c\
-			src/env_var/env_var_list_handler.c\
 			src/lexer/lexer.c\
 			src/lexer/print_list.c\
 			src/lexer/token_utlis.c\
 			src/lexer/token_value_utils.c\
+			\
 			src/parser/parser.c\
 			src/parser/env_var_expansion.c\
 			src/parser/db_quotes_expansion.c\
@@ -31,6 +33,7 @@ SRCS	=	src/main.c\
 			src/parser/clear_array.c\
 			src/parser/token_key_getter.c\
 			src/parser/print_functions.c\
+			\
 			src/buildins/cd.c\
 			src/buildins/echo.c\
 			src/buildins/env.c\
@@ -38,14 +41,14 @@ SRCS	=	src/main.c\
 			src/buildins/export.c\
 			src/buildins/pwd.c\
 			src/buildins/unset.c\
+			\
 			src/executor/exec_buildins.c\
 			src/executor/exec_utils.c\
 			src/executor/executor.c\
 			src/executor/pipe_execution.c\
+			\
 			src/signals.c\
-			src/error_and_free.c\
 			src/shlvl.c
-
 
 
 HEADER	=	src/minishell.h

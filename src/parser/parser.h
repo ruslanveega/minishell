@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 06:50:35 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 17:34:21 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/30 01:00:45 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,18 @@ typedef enum s_result
 	SUCCESS = 1
 }	t_result;
 
-typedef struct s_redirect
+// typedef struct s_redirect
+// {
+// 	int		type;
+// 	char	*file;
+// }	t_redirect;
+
+typedef struct s_redir
 {
 	int		type;
 	char	*file;
-}	t_redirect;
+	struct s_redir	*next;
+}	t_redir;
 
 typedef struct s_str_chunk
 {
@@ -43,7 +50,7 @@ typedef struct s_str_chunk
 typedef struct s_cmd_list
 {
 	char				**cmd_options;
-	t_list				*redirect;
+	t_redir				*redirect;
 	struct s_cmd_list	*next;
 }	t_cmd_list;
 
@@ -76,9 +83,9 @@ void		join_token_list(t_list *token_list);
 int			evaluate_token_list(t_list *token_list);
 
 // Process redirections
-void		append_redirect(t_list **redirect_list, int type, char *value);
-t_redirect	*process_redirect(t_list *token_list);
-//t_redirect	*get_redirect(t_list *token_list);
+// void		append_redirect(t_list **redirect_list, int type, char *value);
+// t_redirect	*process_redirect(t_list *token_list);
+// //t_redirect	*get_redirect(t_list *token_list);
 
 // Process commands
 void		get_cmd_list(t_cmd_list **cmd_list, t_list *token_list);

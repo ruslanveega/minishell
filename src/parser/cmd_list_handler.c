@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:32:17 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 16:44:01 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/29 04:16:11 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_cmd_list	*get_new_cmd(t_list *redirect, char *cmd_options[])
+t_cmd_list	*get_new_cmd(t_redir *redirect, char *cmd_options[])
 {
 	t_cmd_list	*cmd;
 
 	cmd = (t_cmd_list *)malloc(sizeof(t_cmd_list));
 	if (!cmd)
-		ft_puterror(" error code: 12 Could not allocate\
-		 memory in cmd_processing.c->get_new_cmd");
+		init_err(MEM_ERR, "", 1, 0);
 	cmd->cmd_options = cmd_options;
 	cmd->redirect = redirect;
 	cmd->next = NULL;

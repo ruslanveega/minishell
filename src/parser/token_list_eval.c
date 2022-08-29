@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list_eval.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:13:42 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 17:39:18 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/29 04:23:26 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static int	evaluate_redirect(t_list *token_list)
 		{
 			if (!token_list->next)
 			{
-				init_err( SYTAX_ERR, NEWLINE_STR, 0, 258);
+				init_err(SYN_ERR, NEWLINE_STR, 0, 258);
 				return (ERROR);
 			}
 			if (get_token_node_key(token_list->next) != WORD)
 			{
-				init_err( SYTAX_ERR, get_error_msg(
+				init_err(SYN_ERR, get_error_msg(
 						get_token_node_key(token_list->next)), 0, 258);
 				return (ERROR);
 			}
@@ -56,7 +56,7 @@ static int	evaluate_pipes(t_list *token_list)
 {
 	if (get_token_node_key(token_list) == PIPE)
 	{
-		init_err( SYTAX_ERR, PIPE_STR, 0, 258);
+		init_err(SYN_ERR, PIPE_STR, 0, 258);
 		return (ERROR);
 	}
 	while (token_list->next)
@@ -64,14 +64,14 @@ static int	evaluate_pipes(t_list *token_list)
 		if (get_token_node_key(token_list) == PIPE
 			&& get_token_node_key(token_list->next) == PIPE)
 		{
-			init_err( SYTAX_ERR, PIPE_STR, 0, 258);
+			init_err(SYN_ERR, PIPE_STR, 0, 258);
 			return (ERROR);
 		}
 		token_list = token_list->next;
 	}
 	if (get_token_node_key(token_list) == PIPE)
 	{
-		init_err( SYTAX_ERR, PIPE_STR, 0, 258);
+		init_err(SYN_ERR, PIPE_STR, 0, 258);
 		return (ERROR);
 	}
 	return (SUCCESS);

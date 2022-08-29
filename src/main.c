@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:01:56 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/27 01:19:44 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/30 01:42:22 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ void	init_pipes(t_cmd_list *cmd_list, t_all *all)
 
 	all->pipes = malloc(sizeof(t_pipe));
 	if (!all->pipes)
-		err_str->code = MEM_ERR;
+		all->err_str->code = MEM_ERR;
 	tmp_pipe = all->pipes;
 	while (cmd_list)
 	{
-
 		make_pipe_args(all->pipes, cmd_list, all->env);
 		if (cmd_list->next)
 		{
 			all->pipes->next = malloc(sizeof(t_pipe));
 			if (!all->pipes->next)
-				return (ft_puterror("allocation error"));
+				init_err(MEM_ERR, "", 1, 0);
 			all->pipes = all->pipes->next;
 			cmd_list = cmd_list->next;
 		}
@@ -46,24 +45,26 @@ void	init_pipes(t_cmd_list *cmd_list, t_all *all)
 	all->pipes = tmp_pipe;
 }
 
-void	mini_loop(t_all *all, t_sl_list *env)
+void	mini_loop(t_all *all)
 {
 	char			*line;
 	t_cmd_list		*cmd_list;
 
-	err_str = malloc(sizeof(t_error));
-	err_str->code = NULL;
-	err_str->exit = 0;
-	err_str->token = NULL;
-	err_str->exit_status = 0;
+	all->err_str = malloc(sizeof(t_error));
+	all->err_str->code = NULL;
+	all->err_str->exit = 0;
+	all->err_str->token = NULL;
+	all->err_str->exit_status = 0;
+	cmd_list = NULL;
 	while (1)
 	{
-		free_line_and_pipe(all->pipes, line);
-		if (err_str->code == MEM_ERR || err_str->exit)
+		free_pipe_cmd(all->pipes, cmd_list);
+		if (!ft_strcmp(all->err_str->code, MEM_ERR) || all->err_str->exit)
 			break ;
 		line = readline("minishell$");
 		add_history(line);
-		cmd_list = parse_input(line);
+		cmd_list = parse_input(line, all);
+		free(line);
 		if (print_error() || cmd_list == NULL)
 			continue ;
 		init_pipes(cmd_list, all);
@@ -75,18 +76,16 @@ void	mini_loop(t_all *all, t_sl_list *env)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_all	*all;
-
 	(void) argc;
 	(void) argv;
 	init_signals();
 	all = malloc(sizeof(t_all));
 	if (!all)
-		err_str->code = MEM_ERR;
+		all->err_str->code = MEM_ERR;
 	all->env = get_env_var(envp);
 	all->pipes = NULL;
-	incr_shlvl(all->env, 1);
-	mini_loop(all, all->env);
-	free_all_and_env(all, all->env);
+	incr_shlvl(all, 1);
+	mini_loop(all);
+	free_all_and_env(all);
 	return (0);
 }

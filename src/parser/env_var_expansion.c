@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 21:49:22 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 17:44:57 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/30 01:44:26 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*lookup_env_var_val(const char *start, const char *end)
 	size_t		length;
 	char		*str;
 
-	env_var_list = g_env_var;
+	env_var_list = all->env;
 	str = NULL;
 	length = ft_substr_len(start, end);
 	while (env_var_list)

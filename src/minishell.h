@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/27 02:45:17 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/30 01:40:47 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/history.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-#include <fcntl.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 # include "lexer/lexer.h"
 # include "parser/parser.h"
@@ -38,6 +38,9 @@
 # define TO_MANY "to many arguments"
 # define NUM_ARG "numeric argument required"
 
+typedef struct s_redir t_redir;
+typedef struct s_cmd_list t_cmd_list;
+
 
 typedef struct s_sl_list
 {
@@ -46,11 +49,11 @@ typedef struct s_sl_list
 	struct s_sl_list	*next;
 }	t_sl_list;
 
-typedef enum e_result_type
-{
-	ERROR,
-	SUCCES
-}	t_result_type;
+// typedef enum e_result_type
+// {
+// 	ERROR,
+// 	SUCCES
+// }	t_result_type;
 
 typedef struct s_error
 {
@@ -66,17 +69,17 @@ typedef struct s_env_var
 	char	*value;
 }	t_env_var;
 
-typedef struct s_redir
-{
-	int		type;
-	char	*file;
-	struct s_redir	*next;
-}	t_redir;
+// typedef struct s_redir
+// {
+// 	int		type;
+// 	char	*file;
+// 	struct s_redir	*next;
+// }	t_redir;
 
 typedef struct s_pipe
 {
 	t_sl_list			*env;
-	t_list				*redir;
+	t_redir				*redir;
 	char				*command;
 	int					fd_in;
 	int					fd_out;
@@ -87,11 +90,12 @@ typedef struct s_pipe
 
 typedef struct s_all
 {
+	t_error		*err_str;
 	t_sl_list	*env;
 	t_pipe		*pipes;
 }	t_all;
 
-t_error	*err_str;
+t_all	*all;
 
 
 //CDELL
@@ -113,7 +117,7 @@ void		clear_env_var(t_env_var *env_var_node);
 t_list	*get_token_list(char *line);
 
 // Parser
-t_cmd_list	*parse_input(char *line);
+t_cmd_list	*parse_input(char *line, t_all *all);
 void		clear_cmd_list(t_cmd_list **list);
 
 
@@ -123,7 +127,6 @@ int		num_args(char **line);
 size_t	ft_substr_len(const char *start, const char *end);
 int		is_redirect(int key);
 int		print_error(void);
-void	free_all_and_env(t_all *all, t_sl_list *env);
 
 
 // Singly linked list operations
@@ -179,5 +182,6 @@ int		handler_heredoc(int sig);
 
 int		init_err(char *code, char *token, int exit, int exit_status);
 int		print_error(void);
-
+void	free_all_and_env(t_all *all);
+void	free_pipe_cmd(t_pipe *pipes, t_cmd_list *cmd_list);
 #endif //MINISHELL_H

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utlis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 17:26:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 16:21:09 by cdell            ###   ########.fr       */
+/*   Updated: 2022/08/30 01:13:24 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	get_quote_tk(char **str, char quote_type)
 		(*str)++;
 	if (**str == 0)
 	{
-		init_err( SYTAX_ERR, "Unclosed QUOTE", 0, 258);
+		init_err(SYN_ERR, "Unclosed QUOTE", 0, 258);
 		return (0);
 	}
 	(*str)++;
