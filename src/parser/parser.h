@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 06:50:35 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/30 01:00:45 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/30 02:33:04 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ typedef enum s_result
 	SUCCESS = 1
 }	t_result;
 
-// typedef struct s_redirect
-// {
-// 	int		type;
-// 	char	*file;
-// }	t_redirect;
-
-typedef struct s_redir
+typedef struct s_redirect
 {
 	int		type;
 	char	*file;
+}	t_redirect;
+
+typedef struct s_redir
+{
+	int				type;
+	char			*file;
 	struct s_redir	*next;
 }	t_redir;
 
@@ -89,7 +89,7 @@ int			evaluate_token_list(t_list *token_list);
 
 // Process commands
 void		get_cmd_list(t_cmd_list **cmd_list, t_list *token_list);
-void		append_cmd(t_cmd_list **cmd_list, t_list *redirect,
+void		append_cmd(t_cmd_list **cmd_list, t_redir *redirect,
 				char *cmd_options[]);
 
 // Clear command list

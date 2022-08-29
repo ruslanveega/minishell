@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:44:37 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/30 01:30:49 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/30 02:17:25 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	process_token_list(t_list *token_list)
 	return (SUCCESS);
 }
 
-t_cmd_list	*parse_input(char *line, t_all *all)
+t_cmd_list	*parse_input(char *line)
 {
 	t_cmd_list	*cmd_list;
 	t_list		*token_list;

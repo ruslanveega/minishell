@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:32:17 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/29 04:16:11 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/30 02:22:23 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,25 @@ static void	lst_add_back_node(t_cmd_list **list, t_cmd_list *new_node)
 		*list = new_node;
 }
 
-void	clear_cmd_list(t_cmd_list **list)
-{
-	t_cmd_list	*tmp;
+// void	clear_cmd_list(t_cmd_list **list)
+// {
+// 	t_cmd_list	*tmp;
 
-	if (!*list)
-		return ;
-	while (*list)
-	{
-		tmp = *list;
-		*list = (*list)->next;
-		ft_lstclear(&tmp->redirect, clear_token);
-		clear_array(tmp->cmd_options);
-		free(tmp);
-		tmp = NULL;
-	}
-	list = NULL;
-}
+// 	if (!*list)
+// 		return ;
+// 	while (*list)
+// 	{
+// 		tmp = *list;
+// 		*list = (*list)->next;
+// 		ft_lstclear(&tmp->redirect, clear_token);
+// 		clear_array(tmp->cmd_options);
+// 		free(tmp);
+// 		tmp = NULL;
+// 	}
+// 	list = NULL;
+// }
 
-void	append_cmd(t_cmd_list **cmd_list, t_list *redirect, char *cmd_options[])
+void	append_cmd(t_cmd_list **cmd_list, t_redir *redirect, char *cmd_options[])
 {
 	t_cmd_list	*cmd;
 

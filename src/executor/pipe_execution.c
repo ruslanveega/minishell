@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:23:55 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/21 02:52:45 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/30 02:24:25 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	execute_pipe_bin(t_pipe *pipes, t_all *all)
 			ft_error_exit("can't execute command", pipes->command);
 	}
 	else
-		waitpid(pid, &err_str->exit_status, 0);
+		waitpid(pid, &all->err_str->exit_status, 0);
 }
 
 int	choose_out_in(t_pipe *pipes, t_redir *redir)

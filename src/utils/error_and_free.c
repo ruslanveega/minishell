@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 03:57:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/30 01:42:12 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/30 02:37:34 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	init_err(char *code, char *token, int exit, int exit_status)
 	if (token)
 		all->err_str->token = token;
 	if (exit)
-		all->err_str->exit = exit;
+		print_error();
 	if (exit_status)
 		all->err_str->exit_status = exit_status;
 	return (1);

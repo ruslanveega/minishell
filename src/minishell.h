@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/30 01:40:47 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/30 02:17:43 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void		clear_env_var(t_env_var *env_var_node);
 t_list	*get_token_list(char *line);
 
 // Parser
-t_cmd_list	*parse_input(char *line, t_all *all);
+t_cmd_list	*parse_input(char *line);
 void		clear_cmd_list(t_cmd_list **list);
 
 

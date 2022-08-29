@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:01:56 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/30 01:42:22 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/08/30 02:31:53 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	make_pipe_args(t_pipe *pipe, t_cmd_list *cmd, t_sl_list *env)
 {
 	pipe->env = env;
-	pipe->redir = cmd->redirect;
+	// pipe->redir = cmd->redirect;
+	pipe->redir = get_redir(cmd->redirect);
 	pipe->command = cmd->cmd_options[0];
 	pipe->line = cmd->cmd_options;
 	pipe->heredoc = NULL;
@@ -63,7 +64,7 @@ void	mini_loop(t_all *all)
 			break ;
 		line = readline("minishell$");
 		add_history(line);
-		cmd_list = parse_input(line, all);
+		cmd_list = parse_input(line);
 		free(line);
 		if (print_error() || cmd_list == NULL)
 			continue ;
