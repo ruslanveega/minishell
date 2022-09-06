@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr_len.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:37:33 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/03 18:37:35 by cdell            ###   ########.fr       */
+/*   Updated: 2022/09/02 05:36:03 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_substr_len(const char *start, const char *end)
 {
-	size_t length;
+	size_t	length;
 
 	length = 0;
 	if (!end)

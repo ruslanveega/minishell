@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:19 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/17 04:26:32 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/05 01:46:12 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ void	env_add_back(t_sl_list *env, t_sl_list *new_env)
 t_sl_list	*valid_env(char *line)
 {
 	t_sl_list	*new_env;
-	char		*key;
+	// char		*key;
 	char		*value;
 	int			len;
 	char		*tmp;
 
+	len = 0;
 	value = ft_strchr(line, '=');
 	if (!value)
 		return (NULL);
@@ -76,7 +77,7 @@ void	ft_export(char **line, t_sl_list *env)
 	{
 		new_env = valid_env(line[i]);
 		if (new_env)
-			env_add_backenv(env, new_env);
+			env_add_back(env, new_env);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:22 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/27 02:45:07 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/05 01:44:42 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int check_arg(char *line)
 {
 	if (*line == '+' || *line == '-')
-		*line++;
+		line++;
 	while (*line)
 		if (!isdigit(*line))
 			return (1);
@@ -35,6 +35,6 @@ int	ft_exit(t_pipe *pipes)
 		return (init_err(TO_MANY, "", 0, 1));
 	if (pipes->line[1] != NULL && check_arg(pipes->line[1]))
 		return (init_err(NUM_ARG, pipes->line[1], 1, 1));
-	err_str->exit = 1;
+	g_all->err_str->exit = 1;
 	return (0);
 }

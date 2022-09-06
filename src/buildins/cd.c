@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:35 by fcassand          #+#    #+#             */
-/*   Updated: 2022/07/22 03:24:59 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/05 01:41:03 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	update_pwd(t_sl_list *env, char *key, char *path, int num_sym)
 	if (!path)
 	{
 		if (getcwd(cwd, 100) == NULL)
-			return (error_func());
+			return (init_err("cd: NOT SET", key, 0, 1));
 		path = cwd;
 	}
 	env_tmp = env;
@@ -43,7 +43,7 @@ int	update_pwd(t_sl_list *env, char *key, char *path, int num_sym)
 		}
 		env_tmp = env_tmp->next;
 	}
-	return (error_func());
+	return (init_err("cd: NOT SET", key, 0, 1));
 }
 
 char	*env_path(t_sl_list *env, char *key, int num_sym)
@@ -73,13 +73,13 @@ int	to_home_or_prev_dir(t_sl_list *env, int old_or_home)
 	{
 		path = env_path(env, "HOME", 4);
 		if (!path)
-			return (cd_error("HOME not set"));
+			return (init_err("cd:", "", 0, 1));
 	}
 	else
 	{
 		path = env_path(env, "OLDPWD", 6);
 		if (!path)
-			return (cd_error("OLDPWD not set"));
+			return (init_err("cd:", "", 0, 1));
 	}
 	update_pwd(env, "OLDPWD", NULL, 6);
 	chdir(path);
@@ -100,7 +100,10 @@ void	ft_cd(char **line, t_sl_list *env)
 	{
 		old_pwd = env_path(env, "OLDPWD", 6);
 		if (chdir(line[1]) != 0)
-			cd_error(line);
+		{
+			write(1, "cd: ", 1);
+			init_err(NOT_FILE, line[1], 0, 1);
+		}
 		else
 		{
 			if (old_pwd)

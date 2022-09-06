@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_chunk_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 22:33:41 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 17:37:34 by cdell            ###   ########.fr       */
+/*   Updated: 2022/09/06 04:22:50 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_str_chunk	*create_new_chunk(size_t length, char *chunk)
 	node = NULL;
 	node = (t_str_chunk *)malloc(sizeof (t_str_chunk));
 	if (!node)
-		ft_puterror("Failed to allocate memory for token");
+		init_err(MEM_ERR, "", 1, 0);
 	node->length = length;
 	node->str = chunk;
 	return (node);

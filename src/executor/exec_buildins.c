@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:26:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/27 01:23:39 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/05 04:32:55 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 int	execute_build(t_pipe *pipe)
 {
-	if (pipe->command == "echo")
+	if (ft_strcmp(pipe->command, "echo"))
 		echo(pipe->line);
-	else if (pipe->command == "cd")
-		ft_cd(pipe->line, pipe->env);
-	else if (pipe->command == "env")
-		ft_env(pipe->env, 0);
-	else if (pipe->command == "exit")
+	else if (ft_strcmp(pipe->command, "cd"))
+		ft_cd(pipe->line, g_all->env);
+	else if (ft_strcmp(pipe->command, "env"))
+		ft_env(g_all->env, 0);
+	else if (ft_strcmp(pipe->command, "exit"))
 		ft_exit(pipe);
-	else if (pipe->command == "export")
-		ft_export(pipe->line, pipe->env);
-	else if (pipe->command == "pwd")
-		ft_pwd(pipe->env);
-	else if (pipe->command == "unset")
-		ft_unset(pipe->line, pipe->env);
+	else if (ft_strcmp(pipe->command, "export"))
+		ft_export(pipe->line, g_all->env);
+	else if (ft_strcmp(pipe->command, "pwd"))
+		ft_pwd(g_all->env);
+	else if (ft_strcmp(pipe->command, "unset"))
+		ft_unset(pipe->line, g_all->env);
 	else
 		return (1);
 	return (0);

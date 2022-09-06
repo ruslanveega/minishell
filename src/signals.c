@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 23:54:31 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/26 03:05:06 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/05 04:42:49 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int	signal_sigint(int sig)
 
 void	init_signals(void)
 {
-	signal(SIGINT, &signal_sigint);
+	signal(SIGINT, (void *)&signal_sigint);
 	signal(SIGQUIT, SIG_IGN);
 }

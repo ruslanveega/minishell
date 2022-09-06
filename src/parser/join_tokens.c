@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 19:04:20 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/29 03:35:22 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/03 21:02:43 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ int	should_join(int key)
 	return (0);
 }
 
+//int	should_join(size_t key)
+//{
+//	if (key == WORD)
+//		return (1);
+//	return (0);
+//}
+
 static void	*join_strs(void *current, void *next)
 {
 	t_token	*t1;
@@ -28,7 +35,7 @@ static void	*join_strs(void *current, void *next)
 
 	t1 = (t_token *)current;
 	t2 = (t_token *)next;
-	joined_str = ft_strjoin(t1->value, t2->value, "");
+	joined_str = ft_strjoin(t1->value, t2->value, NULL);
 	return (joined_str);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list_handler.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:37:30 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 16:18:13 by cdell            ###   ########.fr       */
+/*   Updated: 2022/09/06 04:21:57 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_token	*create_new_token(int key, char *value)
 	node = NULL;
 	node = (t_token *)malloc(sizeof(t_token));
 	if (!node)
-		ft_puterror("Failed to allocate memory for token");
+		init_err(MEM_ERR, "", 1, 0);
 	node->key = key;
 	node->value = value;
 	return (node);

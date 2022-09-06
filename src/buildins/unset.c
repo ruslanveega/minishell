@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:13 by fcassand          #+#    #+#             */
-/*   Updated: 2022/07/21 05:21:32 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/05 01:47:18 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_unset(char **line, t_sl_list *env)
 			len = ft_strlen(line[i]);
 			if (ft_strncmp(line[i], tmp_env->key, len) == 0)
 				del_env(tmp_env->key, env, len);
-			tmp_env->next;
+			tmp_env = tmp_env->next;
 		}
 		i++;
 		num_to_del--;

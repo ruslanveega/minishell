@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:59:47 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/21 01:00:31 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/02 05:37:16 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ size_t	ft_strlen_plus(const char *str, char c)
 	while (str[length] && str[length] != c)
 		length++;
 	return (length);
-}
-
-void print_env_list(t_sl_list *env_var_list)
-{
-	if (!env_var_list)
-	{
-		printf("ENV var list is empty\n");
-		exit(EXIT_FAILURE);
-	}
-	while (env_var_list)
-	{
-		printf("%s=%s\n", (char *)env_var_list->key, (char *)env_var_list->value);
-		env_var_list = env_var_list->next;
-	}
 }
 
 t_sl_list	*get_env_var(char *env[])
@@ -53,7 +39,7 @@ t_sl_list	*get_env_var(char *env[])
 		key = malloc(sizeof(char) * size[0] + 1);
 		value = malloc(sizeof(char) * size[1] + 1);
 		if (!key || !value)
-			ft_puterror("Failed to allocate memory in *get_env_var(char *env[]) function");
+			init_err(MEM_ERR, NULL, 1, 1);
 		ft_strlcpy(key, env[i], size[0] + 1);
 		ft_strlcpy(value, env[i] + size[0] + 1, size[1] + 1);
 		lst_append_node(&env_var_list, (void *)key, (void *)value);

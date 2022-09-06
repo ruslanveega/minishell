@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_ops.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Abdu-Rashid <Abdu-Rashid@student.42.fr>    +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:01:06 by cdell             #+#    #+#             */
-/*   Updated: 2022/07/30 22:41:42 by Abdu-Rashid      ###   ########.fr       */
+/*   Updated: 2022/09/06 04:16:08 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_sl_list	*lst_create_new_node(void *key, void *value)
 
 	node = (t_sl_list *)malloc(sizeof (t_sl_list));
 	if (!node)
-		ft_puterror("Failed to allocate memory for token");
+		init_err(MEM_ERR, "", 1, 0);
 	node->key = key;
 	node->value = value;
 	node->next = NULL;

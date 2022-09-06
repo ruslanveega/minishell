@@ -10,6 +10,7 @@ SRCS	=	src/main.c\
 			src/utils/ft_substr_len.c\
 			src/utils/error_and_free.c\
 			src/utils/env_var.c\
+			src/utils/get_redir_list.c\
 			\
 			src/lexer/token_list_handler.c\
 			src/lexer/lexer.c\
@@ -33,6 +34,7 @@ SRCS	=	src/main.c\
 			src/parser/clear_array.c\
 			src/parser/token_key_getter.c\
 			src/parser/print_functions.c\
+			src/parser/ft_arrdup.c\
 			\
 			src/buildins/cd.c\
 			src/buildins/echo.c\
@@ -46,6 +48,7 @@ SRCS	=	src/main.c\
 			src/executor/exec_utils.c\
 			src/executor/executor.c\
 			src/executor/pipe_execution.c\
+			src/executor/heredoc.c\
 			\
 			src/signals.c\
 			src/shlvl.c
@@ -65,7 +68,7 @@ all		:	$(LIBFT_A) $(NAME)
 $(LIBFT_A)	:	libft ;
 
 libft	:
-	make -C $(LIBFT_DIR)
+	make bonus -C $(LIBFT_DIR)
 
 $(NAME)	:	$(LIBFT_A) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -lreadline -o $(NAME)

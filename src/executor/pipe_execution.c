@@ -6,53 +6,48 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:23:55 by fcassand          #+#    #+#             */
-/*   Updated: 2022/08/30 02:24:25 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/05 04:40:56 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "../minishell.h"
 
-void	execute_pipe_bin(t_pipe *pipes, t_all *all)
+void	execute_pipe_bin(t_pipe *pipes, t_all *g_all)
 {
 	pid_t	pid;
 	char	*full_path;
 
 	pid = fork();
 	if (pid == -1)
-		ft_puterror("fork");
+		init_err("can't create new process", NULL, 1, 1);
 	if (pid == 0)
 	{
 		dup2(pipes->fd_in, 0);
 		dup2(pipes->fd_out, 1);
-		full_path = get_full_path(pipes->command, pipes->env);
+		full_path = get_full_path(pipes->command, g_all->env);
 		if (!full_path)
-			ft_error_exit("can't find command", pipes->command);
-		if (execve(full_path, pipes->line, pipes->env) == -1)
-			ft_error_exit("can't execute command", pipes->command);
+			init_err(ERR_CMD_NOT_FOUND, pipes->command, 1, 1);
+		if (execve(full_path, pipes->line, env_to_arr(g_all->env)) == -1)
+			init_err("execution error", pipes->command, 1, 1);
 	}
 	else
-		waitpid(pid, &all->err_str->exit_status, 0);
+		waitpid(pid, &g_all->err_str->exit_status, 0);
 }
 
-int	choose_out_in(t_pipe *pipes, t_redir *redir)
+void	choose_out_in(t_pipe *pipes, t_redir *redir)
 {
 	while (redir)
 	{
 		if (redir->type == REDIRECT_OUT)
-			if (ft_to_file(redir, &pipes->fd_out, TRUE, FALSE))
-				return (1);
+			ft_to_file(redir, &pipes->fd_out, TRUE, FALSE);
 		else if (redir->type == REDIRECT_APPEND)
-			if (ft_to_file(redir, &pipes->fd_out, FALSE, FALSE))
-				return (1);
+			ft_to_file(redir, &pipes->fd_out, FALSE, FALSE);
 		else if (redir->type == REDIRECT_IN)
-			if (read_from_file(redir, &pipes->fd_in, FALSE))
-				return (1);
+			read_from_file(redir, &pipes->fd_in, FALSE);
 		else if (redir->type == REDIRECT_HEREDOC)
-			if (make_heredoc(pipes, redir))
-				return (1);
+			make_heredoc(pipes, redir);
 		redir = redir->next;
 	}
-	return (0);
 }
 
 int	make_pipes(t_pipe *pipes)
@@ -62,7 +57,7 @@ int	make_pipes(t_pipe *pipes)
 
 	tmp_pipe = pipes;
 	if (pipe(pipe_fd) < 0)
-		return (ft_puterror("can't create new pipe"));
+		return (init_err("can't create new pipe", NULL, 1, 1));
 	tmp_pipe->fd_in = STDIN_FILENO;
 	tmp_pipe->fd_out = pipe_fd[1];
 	tmp_pipe = tmp_pipe->next;
@@ -70,7 +65,7 @@ int	make_pipes(t_pipe *pipes)
 	{
 		tmp_pipe->fd_in = pipe_fd[0];
 		if (pipe(pipe_fd) < 0)
-			return (ft_puterror("can't create new pipe"));
+			return (init_err("can't create new pipe", NULL, 1, 1));
 		tmp_pipe->fd_out = pipe_fd[1];
 		tmp_pipe = tmp_pipe->next;
 	}
@@ -79,21 +74,21 @@ int	make_pipes(t_pipe *pipes)
 	return (0);
 }
 
-int	pipe_executor(t_all *all)
+int	pipe_executor(t_all *g_all)
 {
 	t_pipe	*pipes;
 
-	pipes = all->pipes;
+	pipes = g_all->pipes;
 	make_pipes(pipes);
 	while (pipes)
 	{
 		if (pipes->redir)
-			if(choose_out_in(pipes, pipes->redir))
+			if (g_all->err_str->code != NULL)
 				return (1);
 		if (pipes->command)
 		{
 			if (execute_build(pipes))
-				execute_pipe_bin(pipes, all);
+				execute_pipe_bin(pipes, g_all);
 			if (!isatty(pipes->fd_in))
 				close(pipes->fd_in);
 			if (!isatty(pipes->fd_out))
