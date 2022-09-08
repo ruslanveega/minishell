@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 03:57:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/06 04:32:09 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/07 04:29:25 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	free_redirs(t_redir *redir)
 
 	while (redir)
 	{
-		tmp_redir = redir->next;
-		if (redir->file)
-			free(redir->file);
-		free(redir);
-		redir = tmp_redir;
+		tmp_redir = redir;
+		redir = redir->next;
+		if (tmp_redir->file)
+			free(tmp_redir->file);
+		free(tmp_redir);
 	}
 }
 
@@ -95,7 +95,8 @@ int	print_error(void)
 	}
 	else
 	{
-		printf("minishell$ %s: %s", g_all->err_str->code, g_all->err_str->token);
+		printf("minishell$ %s: %s",
+			g_all->err_str->code, g_all->err_str->token);
 		g_all->err_str->code = NULL;
 		g_all->err_str->token = NULL;
 		if (g_all->err_str->exit)

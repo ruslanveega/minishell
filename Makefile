@@ -59,7 +59,7 @@ HEADER	=	src/minishell.h
 OBJS	=	$(SRCS:.c=.o)
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 .PHONY	:	all clean fclean re libft
 
@@ -68,7 +68,7 @@ all		:	$(LIBFT_A) $(NAME)
 $(LIBFT_A)	:	libft ;
 
 libft	:
-	make bonus -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR)
 
 $(NAME)	:	$(LIBFT_A) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -lreadline -o $(NAME)

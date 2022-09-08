@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:01:56 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/06 04:36:10 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/07 04:16:20 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	init_pipes(t_cmd_list *cmd_list, t_all *g_all)
 			g_all->pipes = g_all->pipes->next;
 			cmd_list = cmd_list->next;
 		}
+		else
+			break ;
 	}
 	g_all->pipes = tmp_pipe;
 }
@@ -50,20 +52,22 @@ void	mini_loop(t_all *g_all)
 	char			*line;
 	t_cmd_list		*cmd_list;
 
-
 	cmd_list = NULL;
 	while (1)
 	{
 		free_pipe_cmd(g_all->pipes);
-		if (!ft_strcmp(g_all->err_str->code, MEM_ERR) || g_all->err_str->exit)
+		if ((g_all->err_str->code
+				&& !ft_strcmp(g_all->err_str->code, MEM_ERR))
+			|| g_all->err_str->exit)
 			break ;
 		line = readline("minishell$");
 		add_history(line);
 		cmd_list = parse_input(line);
-		free(line);
 		if (print_error() || cmd_list == NULL)
 			continue ;
 		init_pipes(cmd_list, g_all);
+		write(1, "err\n", 1);
+		// write(1, cmd_list->cmd_options[1], ft_strlen(cmd_list->cmd_options[1]));
 		start_executor(g_all);
 		if (print_error())
 			continue ;
@@ -75,6 +79,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	init_signals();
+
 	g_all = malloc(sizeof(t_all));
 	if (!g_all)
 		g_all->err_str->code = MEM_ERR;

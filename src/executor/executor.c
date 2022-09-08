@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/05 04:04:27 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/08 04:01:01 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ void	execute_single(t_all *g_all)
 	g_all->pipes->fd_in = STDIN_FILENO;
 	g_all->pipes->fd_out = STDOUT_FILENO;
 	if (g_all->pipes->redir)
+	{
+		file_execution(g_all);
 		if (g_all->err_str->code != NULL)
 			return ;
+	}
 	if (g_all->pipes->command)
 	{
 		if (execute_build(g_all->pipes))

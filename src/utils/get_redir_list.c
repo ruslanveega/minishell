@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:44:37 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/31 21:32:48 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/08 04:07:51 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_redir	*get_redir_list(t_list *redirect_list)
 	t_redir		*redir_list;
 	t_redirect	*node;
 
+	if (!redirect_list)
+		return (NULL);
 	redir_list = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir_list)
 		init_err(MEM_ERR, "", 1, 12);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdell <cdell@student.42.fr>                +#+  +:+       +#+         #
+#    By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/21 04:14:52 by cdell             #+#    #+#              #
-#    Updated: 2022/06/19 18:44:18 by cdell            ###   ########.fr        #
+#    Updated: 2022/09/07 01:36:21 by fcassand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,7 @@ SRCS	=	ft_memchr.c		ft_strdup.c		ft_substr.c\
 			ft_strnstr.c	ft_isprint.c	ft_split.c\
 			ft_strrchr.c	ft_itoa.c		ft_strchr.c\
 			ft_strtrim.c\
-
-SRCS_B	=	ft_lstnew.c		ft_lstadd_front.c	ft_lstsize.c\
+			ft_lstnew.c		ft_lstadd_front.c	ft_lstsize.c\
 			ft_lstlast.c	ft_lstadd_back.c	ft_lstdelone.c\
 			ft_lstclear.c	ft_lstiter.c		ft_lstmap.c\
 
