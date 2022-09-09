@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/08 04:01:01 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/09 04:31:22 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ void	execute_bin(t_pipe *pipe)
 {
 	int		pid;
 	char	*full_path;
+	char	*tmp;
 
+	tmp = pipe->line[1];
 	pid = fork();
 	if (pid == 0)
 	{
+		dup2(pipe->fd_in, 0);
+		dup2(pipe->fd_out, 1);
 		full_path = get_full_path(pipe->command, g_all->env);
 		if (!full_path)
 			init_err(ERR_CMD_NOT_FOUND, pipe->command, 1, 1);

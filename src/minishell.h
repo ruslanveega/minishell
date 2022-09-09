@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/05 04:58:25 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/09 03:09:23 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ t_cmd_list	*parse_input(char *line);
 void		clear_cmd_list(t_cmd_list **list);
 t_redir		*get_redir_list(t_list *redirect_list);
 char		**ft_arrdup(char *cmd_options[]);
+int			get_charr_size(char *arr[]);
 //utils
 int			ft_strcmp(const char *s1, const char *s2);
 int			num_args(char **line);

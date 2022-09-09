@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 02:35:32 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/05 04:36:44 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/09 04:28:55 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ char	**env_to_arr(t_sl_list *env)
 		env_size++;
 		tmp_env = tmp_env->next;
 	}
-	env_arr = malloc(sizeof(char *) * env_size);
+	env_arr = malloc(sizeof(char *) * env_size + 1);
 	if (!env_arr)
 		init_err(MEM_ERR, "", 1, 1);
 	while (env)
 	{
-		env_arr[i++] = ft_strjoin(env->key, "=", env->key);
+		env_arr[i++] = ft_strjoin(env->key, "=", env->value);
 		env = env->next;
 	}
+	env_arr[i] = NULL;
 	return (env_arr);
 }
 
@@ -83,7 +84,7 @@ char	**parse_path(t_sl_list *env)
 	tmp_env = env;
 	while (tmp_env)
 	{
-		if (ft_strncmp(tmp_env->key, "PATH=", 5) == 0)
+		if (ft_strncmp(tmp_env->key, "PATH", 4) == 0)
 		{
 			path = ft_split(tmp_env->value, ':');
 			return (path);

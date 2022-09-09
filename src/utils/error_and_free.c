@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 03:57:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/07 04:29:25 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/09 03:58:29 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	free_pipe_cmd(t_pipe *pipes)
 			free(pipes->heredoc);
 		while (pipes->line[i])
 			free(pipes->line[i++]);
-		free(pipes->line);
+		if (pipes->line)
+			free(pipes->line);
 		if (pipes->command)
 			free(pipes->command);
 		free(pipes);
@@ -95,7 +96,7 @@ int	print_error(void)
 	}
 	else
 	{
-		printf("minishell$ %s: %s",
+		printf("minishell$ %s: %s \n",
 			g_all->err_str->code, g_all->err_str->token);
 		g_all->err_str->code = NULL;
 		g_all->err_str->token = NULL;

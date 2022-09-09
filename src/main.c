@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:01:56 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/07 04:16:20 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/09 02:49:50 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,12 @@ void	mini_loop(t_all *g_all)
 				&& !ft_strcmp(g_all->err_str->code, MEM_ERR))
 			|| g_all->err_str->exit)
 			break ;
-		line = readline("minishell$");
+		line = readline("minishell$ ");
 		add_history(line);
 		cmd_list = parse_input(line);
 		if (print_error() || cmd_list == NULL)
 			continue ;
 		init_pipes(cmd_list, g_all);
-		write(1, "err\n", 1);
-		// write(1, cmd_list->cmd_options[1], ft_strlen(cmd_list->cmd_options[1]));
 		start_executor(g_all);
 		if (print_error())
 			continue ;
