@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:23:55 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/05 04:40:56 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/12 03:29:52 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	choose_out_in(t_pipe *pipes, t_redir *redir)
 	while (redir)
 	{
 		if (redir->type == REDIRECT_OUT)
-			ft_to_file(redir, &pipes->fd_out, TRUE, FALSE);
+			ft_to_file(redir, &pipes->fd_out, TRUE);
 		else if (redir->type == REDIRECT_APPEND)
-			ft_to_file(redir, &pipes->fd_out, FALSE, FALSE);
+			ft_to_file(redir, &pipes->fd_out, FALSE);
 		else if (redir->type == REDIRECT_IN)
 			read_from_file(redir, &pipes->fd_in, FALSE);
 		else if (redir->type == REDIRECT_HEREDOC)

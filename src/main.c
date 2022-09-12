@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:01:56 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/09 02:49:50 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:17:27 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ void	make_pipe_args(t_pipe *pipe, t_cmd_list *cmd)
 	pipe->redir = get_redir_list(cmd->redirect);
 	pipe->command = ft_strdup(cmd->cmd_options[0]);
 	pipe->line = ft_arrdup(cmd->cmd_options);
-	clear_cmd_list(&cmd);
 	pipe->heredoc = NULL;
 	pipe->next = NULL;
 }
 
 void	init_pipes(t_cmd_list *cmd_list, t_all *g_all)
 {
-	t_pipe	*tmp_pipe;
+	t_pipe		*tmp_pipe;
+	t_cmd_list	*tmp_cmd;
 
+	tmp_cmd = cmd_list;
 	g_all->pipes = malloc(sizeof(t_pipe));
 	if (!g_all->pipes)
 		g_all->err_str->code = MEM_ERR;
@@ -44,6 +45,7 @@ void	init_pipes(t_cmd_list *cmd_list, t_all *g_all)
 		else
 			break ;
 	}
+	clear_cmd_list(tmp_cmd);
 	g_all->pipes = tmp_pipe;
 }
 
@@ -77,7 +79,6 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	init_signals();
-
 	g_all = malloc(sizeof(t_all));
 	if (!g_all)
 		g_all->err_str->code = MEM_ERR;

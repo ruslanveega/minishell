@@ -6,18 +6,18 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:22 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/09 03:54:09 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/12 01:50:50 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int check_arg(char *line)
+int	check_arg(char *line)
 {
 	if (*line == '+' || *line == '-')
 		line++;
 	while (*line)
-		if (!isdigit(*line))
+		if (!isdigit(*line++))
 			return (1);
 	return (0);
 }
@@ -39,6 +39,6 @@ int	ft_exit(t_pipe *pipes)
 		return (init_err(NUM_ARG, pipes->line[1], 1, 1));
 	ft_putstr_fd("exit\n", 1);
 	exit(EXIT_SUCCESS);
-	// g_all->err_str->exit = 1;
+	g_all->err_str->exit = 1;
 	return (0);
 }

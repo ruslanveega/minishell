@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 02:35:32 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/09 04:28:55 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/12 03:28:52 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	read_from_file(t_redir *redir, int *fd, int need_dup)
 	return (0);
 }
 
-int	ft_to_file(t_redir *redir, int *fd, int flag, int need_dup)
+int	ft_to_file(t_redir *redir, int *fd, int flag)
 {
 	if (access((const char *)redir->file, F_OK) < 0)
 		return (init_err(NOT_FILE, redir->file, 0, 1));
@@ -67,12 +67,6 @@ int	ft_to_file(t_redir *redir, int *fd, int flag, int need_dup)
 	else
 		*fd = open(redir->file, O_CREAT | O_RDONLY
 				| O_WRONLY | O_APPEND, 0644);
-	if (need_dup)
-	{
-		if (dup2(*fd, STDOUT_FILENO) == -1)
-			return (init_err(DUP, redir->file, 0, 1));
-		close(*fd);
-	}
 	return (0);
 }
 
@@ -102,6 +96,11 @@ char	*get_full_path(char *cmd, t_sl_list *env)
 
 	i = 0;
 	paths = parse_path(env);
+	if (ft_strchr(cmd, '/'))
+	{
+		full_path = ft_strdup(cmd);
+		return (full_path);
+	}
 	while (paths[i])
 	{
 		full_path = ft_strjoin(paths[i], "/", cmd);

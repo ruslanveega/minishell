@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/09 03:09:23 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/12 03:29:28 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_all
 	t_pipe		*pipes;
 }	t_all;
 
-t_all	*g_all;
+t_all						*g_all;
 
 //CDELL
 // Utils
@@ -101,7 +101,6 @@ int			is_redirect(int key);
 void		lst_append_node(t_sl_list **list, void *key, void *value);
 void		lst_clear(t_sl_list **list);
 
-
 // Env var setup
 t_sl_list	*get_env_var(char *env[]);
 void		append_env_var(t_list **env_var_list, char *key, char *value);
@@ -112,7 +111,7 @@ t_list		*get_token_list(char *line);
 // Parser
 void		clear_redirect(void *redirect);
 t_cmd_list	*parse_input(char *line);
-void		clear_cmd_list(t_cmd_list **list);
+void		clear_cmd_list(t_cmd_list *list);
 t_redir		*get_redir_list(t_list *redirect_list);
 char		**ft_arrdup(char *cmd_options[]);
 int			get_charr_size(char *arr[]);
@@ -150,7 +149,7 @@ void		execute_bin(t_pipe *pipe);
 void		file_execution(t_all *g_all);
 char		*get_full_path(char *cmd, t_sl_list *env);
 char		**parse_path(t_sl_list *env);
-int			ft_to_file(t_redir *redir, int *fd, int flag, int need_dup);
+int			ft_to_file(t_redir *redir, int *fd, int flag);
 int			read_from_file(t_redir *redir, int *fd, int need_dup);
 void		ft_error_exit(char *error, char *cmd);
 int			execute_build(t_pipe *pipe);

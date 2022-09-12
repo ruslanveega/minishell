@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:35 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/07 03:59:20 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/12 02:02:44 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	update_pwd(t_sl_list *env, char *key, char *path, int num_sym)
 	{
 		if (ft_strncmp(env_tmp->key, key, num_sym) == 0)
 		{
-			env_tmp->value = path;
+			free(env_tmp->value);
+			env_tmp->value = ft_strdup(path);
 			return (0);
 		}
 		env_tmp = env_tmp->next;
@@ -67,8 +68,9 @@ char	*env_path(t_sl_list *env, char *key, int num_sym)
 int	to_home_or_prev_dir(t_sl_list *env, int old_or_home)
 {
 	char	*path;
+	char	*oldpwd;
 
-	path = NULL;
+	oldpwd = env_path(env, "PWD", 3);
 	if (old_or_home)
 	{
 		path = env_path(env, "HOME", 4);
@@ -81,9 +83,9 @@ int	to_home_or_prev_dir(t_sl_list *env, int old_or_home)
 		if (!path)
 			return (init_err("cd:", "", 0, 1));
 	}
-	update_pwd(env, "OLDPWD", NULL, 6);
+	update_pwd(env, "OLDPWD", oldpwd, 6);
 	chdir(path);
-	update_pwd(env, "PWD", NULL, 3);
+	update_pwd(env, "PWD", path, 3);
 	return (0);
 }
 
@@ -94,11 +96,11 @@ void	ft_cd(char **line, t_sl_list *env)
 	old_pwd = NULL;
 	if (!line[1])
 		to_home_or_prev_dir(env, 1);
-	if (ft_strcmp(line[1], "-") == 0)
+	else if (ft_strcmp(line[1], "-") == 0)
 		to_home_or_prev_dir(env, 0);
 	else
 	{
-		old_pwd = env_path(env, "OLDPWD", 6);
+		old_pwd = env_path(env, "PWD", 6);
 		if (chdir(line[1]) != 0)
 		{
 			write(1, "cd: ", 1);

@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 06:39:22 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/06 04:22:34 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:59:11 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ static t_redirect	*create_new_redirect(int type, char *file)
 	return (node);
 }
 
-void clear_redirect(void *redirect) {
+void	clear_redirect(void *redirect)
+{
 	t_redirect	*node;
 
+	if (redirect == NULL)
+		return ;
 	node = (t_redirect *)redirect;
 	free(node->file);
 	free(node);

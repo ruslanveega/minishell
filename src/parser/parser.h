@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 06:50:35 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/02 03:59:27 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:59:31 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define REDIRECT_APPEND_STR "\'>>\'"
 # define REDIRECT_HEREDOC_STR "\'<<\'"
 
-typedef struct s_redir t_redir;
+typedef struct s_redir	t_redir;
 
 typedef enum s_result
 {

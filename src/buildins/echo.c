@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:28 by fcassand          #+#    #+#             */
-/*   Updated: 2022/07/17 17:09:00 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:19:02 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	echo(char **line)
 		num++;
 	if (num < 2)
 		return (1);
-	num = 0;
+	num = 1;
 	while (line[num])
 	{
 		if (ft_strcmp(line[num], "-n") == 0)

@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/09 04:31:22 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/12 03:30:20 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	file_execution(t_all *g_all)
 	while (redir != NULL)
 	{
 		if (redir->type == REDIRECT_OUT)
-			ft_to_file(redir, &tmp_pipe->fd_out, TRUE, TRUE);
+			ft_to_file(redir, &tmp_pipe->fd_out, TRUE);
 		else if (redir->type == REDIRECT_APPEND)
-			ft_to_file(redir, &tmp_pipe->fd_in, FALSE, TRUE);
+			ft_to_file(redir, &tmp_pipe->fd_in, FALSE);
 		else if (redir->type == REDIRECT_IN)
 			read_from_file(redir, &tmp_pipe->fd_in, TRUE);
 		else if (redir->type == REDIRECT_HEREDOC)
@@ -49,7 +49,7 @@ void	execute_bin(t_pipe *pipe)
 		if (!full_path)
 			init_err(ERR_CMD_NOT_FOUND, pipe->command, 1, 1);
 		if (execve(full_path, pipe->line, env_to_arr(g_all->env)) == -1)
-			init_err("exec error", pipe->command, 1, 1);
+			init_err(ERR_CMD_NOT_FOUND, pipe->command, 1, 1);
 	}
 	else
 		waitpid(pid, &g_all->err_str->exit_status, 0);
@@ -76,9 +76,6 @@ void	start_executor(t_all *g_all)
 {
 	if (g_all->pipes->next)
 		pipe_executor(g_all);
-	else if (ft_strcmp(g_all->pipes->command, "minishell") == 0 && \
-		!(g_all->pipes->line[1]))
-		incr_shlvl(g_all, 1);
 	else
 		execute_single(g_all);
 }

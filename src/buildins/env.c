@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:25 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/05 01:43:30 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:54:47 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ void	ft_env(t_sl_list *env, int declare)
 		}
 		env = env->next;
 	}
-
 }

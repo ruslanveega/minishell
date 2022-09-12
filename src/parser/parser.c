@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdell <cdell@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:44:37 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/19 16:59:37 by cdell            ###   ########.fr       */
+/*   Updated: 2022/09/10 22:58:26 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ t_cmd_list	*parse_input(char *line)
 	if (ft_strlen(line) == 0)
 		return (NULL);
 	token_list = get_token_list(line);
-	if (!token_list) {
+	if (!token_list)
 		return (NULL);
-	}
 	if (!process_token_list(token_list))
 	{
 		ft_lstclear(&token_list, clear_token);

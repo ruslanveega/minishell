@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:44:37 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/08 04:07:51 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/12 03:12:21 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_redir	*get_last_node(t_redir *list)
 {
 	if (!list)
 		return (NULL);
-	while (list->next)
+	while (list->next && list)
 		list = list->next;
 	return (list);
 }
@@ -64,9 +64,7 @@ t_redir	*get_redir_list(t_list *redirect_list)
 
 	if (!redirect_list)
 		return (NULL);
-	redir_list = (t_redir *)malloc(sizeof(t_redir));
-	if (!redir_list)
-		init_err(MEM_ERR, "", 1, 12);
+	redir_list = NULL;
 	while (redirect_list)
 	{
 		node = (t_redirect *)redirect_list->content;

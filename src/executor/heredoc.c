@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 00:02:14 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/05 04:55:41 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:56:50 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int	make_heredoc(t_pipe *pipes, t_redir *redir)
 		heredoc_child(pipes, redir, heredoc_fd[1]);
 	waitpid(pid, &g_all->err_str->exit_status, 0);
 	close(heredoc_fd[1]);
-	signal(SIGINT, (void *) (void *)&signal_sigint);
+	signal(SIGINT, (void *)&signal_sigint);
 	return (g_all->err_str->exit_status / 256);
 }
