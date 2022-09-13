@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/12 03:30:20 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/13 05:14:59 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	file_execution(t_all *g_all)
 		else if (redir->type == REDIRECT_APPEND)
 			ft_to_file(redir, &tmp_pipe->fd_in, FALSE);
 		else if (redir->type == REDIRECT_IN)
-			read_from_file(redir, &tmp_pipe->fd_in, TRUE);
+			read_from_file(redir, &tmp_pipe->fd_in);
 		else if (redir->type == REDIRECT_HEREDOC)
 			make_heredoc(g_all->pipes, redir);
 		redir = redir->next;

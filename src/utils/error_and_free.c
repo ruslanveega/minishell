@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 03:57:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/12 02:17:31 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/12 19:45:42 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,25 @@ void	free_pipe_cmd(t_pipe *pipes)
 	t_pipe		*tmp_pipe;
 	int			i;
 
-	i = 0;
 	while (pipes)
 	{
+		i = 0;
 		tmp_pipe = pipes->next;
 		if (pipes->redir)
 			free_redirs(pipes->redir);
 		if (pipes->heredoc)
 			free(pipes->heredoc);
 		while (pipes->line[i])
-			free(pipes->line[i++]);
+		{
+			free(pipes->line[i]);
+			pipes->line[i++] = NULL;
+		}
 		if (pipes->line)
 			free(pipes->line);
+		pipes->line = NULL;
 		if (pipes->command)
 			free(pipes->command);
+		pipes->command = NULL;
 		free(pipes);
 		pipes = tmp_pipe;
 	}

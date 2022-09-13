@@ -6,11 +6,61 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:01:56 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/11 19:17:27 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/13 05:16:34 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	read_from_file2(t_redir *redir)
+{
+	int	fd;
+
+	if (access((const char *)redir->file, F_OK) < 0)
+		return (init_err(NOT_FILE, redir->file, 0, 1));
+	if (access((const char *)redir->file, R_OK) < 0)
+		return (init_err(PERM, redir->file, 0, 1));
+	fd = open(redir->file, O_RDONLY);
+	close(fd);
+	return (0);
+}
+
+int	ft_to_file2(t_redir *redir, int flag)
+{
+	int	fd;
+
+	if (access((const char *)redir->file, F_OK) < 0)
+		return (init_err(NOT_FILE, redir->file, 0, 1));
+	if (access((const char *)redir->file, W_OK) < 0)
+		return (init_err(PERM, redir->file, 0, 1));
+	if (flag)
+		fd = open(redir->file, O_CREAT | O_TRUNC
+				| O_RDONLY | O_WRONLY, 0644);
+	else
+		fd = open(redir->file, O_CREAT | O_RDONLY
+				| O_WRONLY | O_APPEND, 0644);
+	close(fd);
+	return (0);
+}
+
+
+void	without_cmd(t_redir *redir)
+{
+	while (redir != NULL)
+	{
+		if (redir->type == REDIRECT_OUT)
+			ft_to_file2(redir, TRUE);
+		else if (redir->type == REDIRECT_APPEND)
+			ft_to_file2(redir, FALSE);
+		else if (redir->type == REDIRECT_IN)
+			read_from_file2(redir);
+		// else if (redir->type == REDIRECT_HEREDOC)
+		// 	make_heredoc2(redir);
+		redir = redir->next;
+	}
+	free_redirs(redir);
+}
+
 
 void	make_pipe_args(t_pipe *pipe, t_cmd_list *cmd)
 {
@@ -58,16 +108,18 @@ void	mini_loop(t_all *g_all)
 	while (1)
 	{
 		free_pipe_cmd(g_all->pipes);
-		if ((g_all->err_str->code
-				&& !ft_strcmp(g_all->err_str->code, MEM_ERR))
-			|| g_all->err_str->exit)
+		if (g_all->err_str->code
+			&& !ft_strcmp(g_all->err_str->code, MEM_ERR))
 			break ;
 		line = readline("minishell$ ");
 		add_history(line);
 		cmd_list = parse_input(line);
 		if (print_error() || cmd_list == NULL)
 			continue ;
-		init_pipes(cmd_list, g_all);
+		if (!cmd_list->cmd_options[0] && cmd_list->redirect)
+			without_cmd(get_redir_list(cmd_list->redirect));
+		else
+			init_pipes(cmd_list, g_all);
 		start_executor(g_all);
 		if (print_error())
 			continue ;
@@ -86,16 +138,12 @@ int	main(int argc, char *argv[], char *envp[])
 	g_all->pipes = NULL;
 	g_all->err_str = malloc(sizeof(t_error));
 	if (!g_all->err_str)
-	{
 		return (1);
-		free_all_and_env(g_all);
-	}
 	g_all->err_str->code = NULL;
 	g_all->err_str->exit = 0;
 	g_all->err_str->token = NULL;
 	g_all->err_str->exit_status = 0;
 	incr_shlvl(g_all, 1);
 	mini_loop(g_all);
-	free_all_and_env(g_all);
 	return (0);
 }

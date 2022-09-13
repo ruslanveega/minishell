@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/12 03:29:28 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/13 05:07:39 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void		file_execution(t_all *g_all);
 char		*get_full_path(char *cmd, t_sl_list *env);
 char		**parse_path(t_sl_list *env);
 int			ft_to_file(t_redir *redir, int *fd, int flag);
-int			read_from_file(t_redir *redir, int *fd, int need_dup);
+int			read_from_file(t_redir *redir, int *fd);
 void		ft_error_exit(char *error, char *cmd);
 int			execute_build(t_pipe *pipe);
 void		ft_error_exit(char *error, char *cmd);

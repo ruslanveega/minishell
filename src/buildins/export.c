@@ -6,18 +6,11 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:19 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/10 22:55:43 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/13 04:34:14 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	*export_error(char *error, char *line)
-{
-	if (line)
-		printf("%s %s", error, line);
-	return (NULL);
-}
 
 void	env_add_back(t_sl_list *env, t_sl_list *new_env)
 {
@@ -30,31 +23,50 @@ void	env_add_back(t_sl_list *env, t_sl_list *new_env)
 	env = tmp;
 }
 
+int	search_in_old(t_sl_list *new)
+{
+	t_sl_list	*old;
+
+	old = g_all->env;
+	while (old)
+	{
+		if (ft_strcmp(new->key, old->key) == 0)
+		{
+			free(old->value);
+			old->value = ft_strdup(new->value);
+			free(new->key);
+			free(new->value);
+			free(new);
+			return (1);
+		}
+		old = old->next;
+	}
+	return (0);
+}
+
 t_sl_list	*valid_env(char *line)
 {
 	t_sl_list	*new_env;
 	char		*value;
-	int			len;
 	char		*tmp;
 
-	len = 0;
 	value = ft_strchr(line, '=');
 	if (!value)
 		return (NULL);
 	value++;
 	new_env = malloc(sizeof(t_sl_list));
-	if (!new_env)
-		return (export_error("allocation", NULL));
-	new_env->value = value;
+	new_env->value = ft_strdup(value);
 	tmp = line;
 	if (ft_isdigit(line[0]))
-		return (export_error("export: not an identifier: ", line));
+		init_err(ft_strjoin("minishell: ", "export: ",
+				INVALID_ARG_FOR_UNSET), line, 0, 1);
 	while (*line != '=')
-		len++;
+		line++;
 	*line = '\0';
-	new_env->key = ft_strjoin("", tmp, "");
-	if (!new_env->key)
-		return (export_error("allocation", NULL));
+	new_env->key = ft_strdup(tmp);
+	new_env->next = NULL;
+	if (search_in_old(new_env))
+		return (NULL);
 	return (new_env);
 }
 
@@ -72,7 +84,7 @@ void	ft_export(char **line, t_sl_list *env)
 	len = num_args(line);
 	i = 1;
 	new_env = NULL;
-	while (i <= len)
+	while (i < len)
 	{
 		new_env = valid_env(line[i]);
 		if (new_env)

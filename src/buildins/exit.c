@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:22 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/12 01:50:50 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/12 20:58:55 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_exit(t_pipe *pipes)
 	if (pipes->line[1] != NULL && check_arg(pipes->line[1]))
 		return (init_err(NUM_ARG, pipes->line[1], 1, 1));
 	ft_putstr_fd("exit\n", 1);
+	free_all_and_env(g_all);
 	exit(EXIT_SUCCESS);
 	g_all->err_str->exit = 1;
 	return (0);
