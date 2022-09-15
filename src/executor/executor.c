@@ -6,11 +6,19 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/15 03:27:50 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:13:54 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "../minishell.h"
+
+void	child_signal(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	if (g_all->err_str->exit_status)
+		exit(130);
+}
 
 void	file_execution(t_all *g_all)
 {
@@ -43,6 +51,7 @@ void	execute_bin(t_pipe *pipes)
 		init_err("can't create new process", NULL, 1, 1);
 	if (pid == 0)
 	{
+		child_signal();
 		dup2(pipes->fd_in, 0);
 		dup2(pipes->fd_out, 1);
 		full_path = get_full_path(pipes->command, g_all->env);

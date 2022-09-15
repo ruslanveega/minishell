@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/15 05:20:46 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:19:40 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,11 @@ char		**env_to_arr(t_sl_list *env);
 int			make_heredoc(t_pipe *pipes, t_redir *redir);
 //signals
 void		init_signals(void);
-int			signal_sigint(int sig);
+void		signal_sigint(int sig);
 // void		ft_signal_cltr_c(int sig);
 int			handler_heredoc(int sig);
+int			handler_heredoc2(int sig);
+int			handler_heredoc3(int sig);
 int			init_err(char *code, char *token, int exit, int exit_status);
 int			print_error(void);
 void		free_all_and_env(t_all *all);

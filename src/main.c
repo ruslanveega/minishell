@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:01:56 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/15 06:03:56 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/15 14:16:03 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	init_pipes(t_cmd_list *cmd_list, t_all *g_all)
 	}
 	clear_cmd_list(tmp_cmd);
 	g_all->pipes = tmp_pipe;
+	start_executor(g_all);
 }
 
 void	mini_loop(t_all *g_all)
@@ -54,15 +55,16 @@ void	mini_loop(t_all *g_all)
 	char			*line;
 	t_cmd_list		*cmd_list;
 
-	cmd_list = NULL;
+	init_signals();
 	while (1)
 	{
-		init_signals();
 		free_pipe_cmd(g_all->pipes);
 		if (g_all->err_str->code
 			&& !ft_strcmp(g_all->err_str->code, MEM_ERR))
 			break ;
 		line = readline("minishell$ ");
+		if (line == NULL)
+			break ;
 		add_history(line);
 		cmd_list = parse_input(line);
 		if (print_error() || cmd_list == NULL)
@@ -70,10 +72,7 @@ void	mini_loop(t_all *g_all)
 		if (!cmd_list->cmd_options[0] && cmd_list->redirect)
 			without_cmd(get_redir_list(cmd_list->redirect), cmd_list);
 		else
-		{
 			init_pipes(cmd_list, g_all);
-			start_executor(g_all);
-		}
 		if (print_error())
 			continue ;
 	}
