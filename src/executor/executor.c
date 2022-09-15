@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 01:29:29 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/13 05:14:59 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/15 03:27:50 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ void	file_execution(t_all *g_all)
 	}
 }
 
-void	execute_bin(t_pipe *pipe)
+void	execute_bin(t_pipe *pipes)
 {
-	int		pid;
+	pid_t	pid;
 	char	*full_path;
-	char	*tmp;
 
-	tmp = pipe->line[1];
 	pid = fork();
+	if (pid == -1)
+		init_err("can't create new process", NULL, 1, 1);
 	if (pid == 0)
 	{
-		dup2(pipe->fd_in, 0);
-		dup2(pipe->fd_out, 1);
-		full_path = get_full_path(pipe->command, g_all->env);
+		dup2(pipes->fd_in, 0);
+		dup2(pipes->fd_out, 1);
+		full_path = get_full_path(pipes->command, g_all->env);
 		if (!full_path)
-			init_err(ERR_CMD_NOT_FOUND, pipe->command, 1, 1);
-		if (execve(full_path, pipe->line, env_to_arr(g_all->env)) == -1)
-			init_err(ERR_CMD_NOT_FOUND, pipe->command, 1, 1);
+			init_err(ERR_CMD_NOT_FOUND, pipes->command, 1, 1);
+		if (execve(full_path, pipes->line, env_to_arr(g_all->env)) == -1)
+			init_err(ERR_CMD_NOT_FOUND, pipes->command, 1, 1);
 	}
 	else
 		waitpid(pid, &g_all->err_str->exit_status, 0);

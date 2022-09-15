@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/13 05:07:39 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/15 05:20:46 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_all
 	t_error		*err_str;
 	t_sl_list	*env;
 	t_pipe		*pipes;
+	pid_t		*pids;
 }	t_all;
 
 t_all						*g_all;
@@ -157,7 +158,7 @@ void		ft_error_exit(char *error, char *cmd);
 int			pipe_executor(t_all *all);
 int			make_pipes(t_pipe *pipes);
 void		choose_out_in(t_pipe *pipes, t_redir *redir);
-void		execute_pipe_bin(t_pipe *pipes, t_all *all);
+// void		execute_pipe_bin(t_pipe *pipes, t_all *all);
 int			make_heredoc(t_pipe *pipe, t_redir *redir);
 void		incr_shlvl(t_all *all, int incr);
 char		**env_to_arr(t_sl_list *env);
@@ -165,9 +166,12 @@ int			make_heredoc(t_pipe *pipes, t_redir *redir);
 //signals
 void		init_signals(void);
 int			signal_sigint(int sig);
+// void		ft_signal_cltr_c(int sig);
 int			handler_heredoc(int sig);
 int			init_err(char *code, char *token, int exit, int exit_status);
 int			print_error(void);
 void		free_all_and_env(t_all *all);
 void		free_pipe_cmd(t_pipe *pipes);
+void		free_redirs(t_redir *redir);
+void		without_cmd(t_redir *redir, t_cmd_list *tmp_cmd);
 #endif

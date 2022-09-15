@@ -11,6 +11,7 @@ SRCS	=	src/main.c\
 			src/utils/error_and_free.c\
 			src/utils/env_var.c\
 			src/utils/get_redir_list.c\
+			src/utils/without_cmd.c\
 			\
 			src/lexer/token_list_handler.c\
 			src/lexer/lexer.c\

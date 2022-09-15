@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 03:57:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/12 19:45:42 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/15 05:43:13 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ void	free_pipe_cmd(t_pipe *pipes)
 		if (pipes->heredoc)
 			free(pipes->heredoc);
 		while (pipes->line[i])
-		{
-			free(pipes->line[i]);
-			pipes->line[i++] = NULL;
-		}
+			free(pipes->line[i++]);
 		if (pipes->line)
 			free(pipes->line);
 		pipes->line = NULL;
@@ -53,6 +50,7 @@ void	free_pipe_cmd(t_pipe *pipes)
 		free(pipes);
 		pipes = tmp_pipe;
 	}
+	g_all->pipes = NULL;
 }
 
 void	free_all_and_env(t_all *g_all)
@@ -109,10 +107,7 @@ int	print_error(void)
 		g_all->err_str->code = NULL;
 		g_all->err_str->token = NULL;
 		if (g_all->err_str->exit)
-		{
-			g_all->err_str->exit = 0;
 			exit(EXIT_FAILURE);
-		}
 		return (1);
 	}
 }

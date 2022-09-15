@@ -1,0 +1,11 @@
+total 208
+drwxr-xr-x  10 fcassand  4221    340 Sep 14 00:42 .
+drwxr-xr-x  10 fcassand  4221    340 Sep 10 21:35 ..
+-rw-r--r--   1 fcassand  4221   6148 Sep  2 03:39 .DS_Store
+drwxr-xr-x  13 fcassand  4221    442 Sep 13 05:17 .git
+drwxr-xr-x   4 fcassand  4221    136 Sep  7 01:39 .vscode
+-rw-r--r--   1 fcassand  4221   1809 Sep  7 04:20 Makefile
+-rw-r--r--   1 fcassand  4221      0 Sep 14 00:43 file1
+drwxr-xr-x  92 fcassand  4221   3128 Sep 14 00:19 libft
+-rwxr-xr-x   1 fcassand  4221  90632 Sep 14 00:42 minishell
+drwxr-xr-x  15 fcassand  4221    510 Sep 14 00:42 src

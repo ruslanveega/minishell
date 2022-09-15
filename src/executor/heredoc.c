@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 00:02:14 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/10 22:56:50 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/15 06:08:31 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	heredoc_child(t_pipe *pipes, t_redir *redir, int heredoc_fd)
 	signal(SIGINT, (void *)&handler_heredoc);
 	pipes->heredoc = readline("heredoc>");
 	rl_on_new_line();
-	while (!ft_strcmp(pipes->heredoc, redir->file))
+	while (ft_strcmp(pipes->heredoc, redir->file) != 0 && pipes->heredoc)
 	{
 		ft_putstr_fd(pipes->heredoc, heredoc_fd);
 		ft_putstr_fd("\n", heredoc_fd);
