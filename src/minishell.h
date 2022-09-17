@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 23:14:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/15 15:19:40 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/17 06:47:22 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,13 +132,13 @@ char		*env_path(t_sl_list *env, char *key, int num_sym);
 int			update_pwd(t_sl_list *env, char *key, char *path, int num_sym);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_exit(t_pipe *pipes);
-int			echo(char **line);
+void		echo(char **line);
 void		ft_env(t_sl_list *env, int declare);
 void		ft_export(char **line, t_sl_list *env);
 t_sl_list	*valid_env(char *line);
 void		env_add_back(t_sl_list *env, t_sl_list *new_env);
 void		*export_error(char *error, char *line);
-void		ft_pwd(t_sl_list *env);
+void		ft_pwd(t_sl_list *env, char **line);
 void		ft_unset(char **line, t_sl_list *env);
 int			num_args(char **line);
 void		del_env(char *key, t_sl_list *env, int len);
@@ -155,21 +155,21 @@ int			read_from_file(t_redir *redir, int *fd);
 void		ft_error_exit(char *error, char *cmd);
 int			execute_build(t_pipe *pipe);
 void		ft_error_exit(char *error, char *cmd);
-int			pipe_executor(t_all *all);
+void		pipe_executor(t_all *all);
 int			make_pipes(t_pipe *pipes);
 void		choose_out_in(t_pipe *pipes, t_redir *redir);
-// void		execute_pipe_bin(t_pipe *pipes, t_all *all);
 int			make_heredoc(t_pipe *pipe, t_redir *redir);
 void		incr_shlvl(t_all *all, int incr);
 char		**env_to_arr(t_sl_list *env);
 int			make_heredoc(t_pipe *pipes, t_redir *redir);
+void		exec_last(t_pipe *pipes);
+void		save_exit_status(pid_t pid);
 //signals
 void		init_signals(void);
 void		signal_sigint(int sig);
-// void		ft_signal_cltr_c(int sig);
 int			handler_heredoc(int sig);
 int			handler_heredoc2(int sig);
-int			handler_heredoc3(int sig);
+void		child_signal(void);
 int			init_err(char *code, char *token, int exit, int exit_status);
 int			print_error(void);
 void		free_all_and_env(t_all *all);

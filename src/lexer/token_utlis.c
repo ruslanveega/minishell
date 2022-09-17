@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 17:26:51 by cdell             #+#    #+#             */
-/*   Updated: 2022/08/30 01:13:24 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/17 06:34:31 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,14 @@ int	get_word_token(char **str)
 	return (WORD);
 }
 
-//int	get_quote_tk(char **str, char quote_type)
-//{
-//	int	token;
-//
-//	token = (int)**str;
-//	(*str)++;
-//	while (**str && **str != quote_type)
-//		(*str)++;
-//	if (**str == 0)
-//		ft_puterror("Unclosed QUOTE");
-//	(*str)++;
-//	return (token);
-//}
-
 int	get_quote_tk(char **str, char quote_type)
 {
 	int	token;
 
 	token = (int)**str;
 	(*str)++;
+	if (**str == quote_type)
+		token = -1;
 	while (**str && **str != quote_type)
 		(*str)++;
 	if (**str == 0)

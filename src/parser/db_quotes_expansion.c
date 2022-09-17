@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 06:36:23 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/06 04:17:45 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/17 06:27:23 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ static t_list	*build_chunk_list(char *db_quote_str)
 			if (ft_isalpha(*(str + 1)))
 				handle_env_var_chunk(&str_chunk_lst, &str);
 			else if (*(str + 1) == '?')
+			{
 				handle_exit_status(&str_chunk_lst, &str);
+				printf("status");
+			}
 		}
 		else
 			handle_str_chunk(&str_chunk_lst, &str);

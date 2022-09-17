@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 03:57:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/15 05:43:13 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/17 04:57:11 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,7 @@ int	init_err(char *code, char *token, int exit, int exit_status)
 int	print_error(void)
 {
 	if (!g_all->err_str->code)
-	{
-		g_all->err_str->exit_status = 0;
 		return (0);
-	}
 	else
 	{
 		printf("%s: %s \n",

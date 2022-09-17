@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:19 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/13 04:34:14 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/17 06:43:48 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,5 @@ void	ft_export(char **line, t_sl_list *env)
 			env_add_back(env, new_env);
 		i++;
 	}
+	g_all->err_str->exit_status = 0;
 }

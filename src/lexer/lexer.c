@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:03:29 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/06 04:17:05 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/17 06:38:32 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*get_token_value(size_t token_key, char *start, const char *end)
 	if (token_key == SINGLE_QUOTE || token_key == DOUBLE_QUOTE)
 		token_value = get_quotes_value(start, *start);
 	else if (token_key == EXIT_STATUS)
-		token_value = get_exit_status();
+		token_value = ft_itoa(g_all->err_str->exit_status);
 	else if (token_key == ENV_VAR)
 		token_value = get_env_var_value(start, end);
 	else
@@ -73,6 +73,8 @@ void	build_token_list(char **line, t_list **token_list)
 			ft_lstclear(token_list, clear_token);
 			return ;
 		}
+		else if (token_key == -1)
+			continue ;
 		if (token_key == WORD || token_key == ENV_VAR
 			|| token_key == SINGLE_QUOTE || token_key == DOUBLE_QUOTE
 			|| token_key == EXIT_STATUS)

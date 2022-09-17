@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:23:55 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/15 05:15:30 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/17 04:52:21 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	execute_pipe_bin(t_pipe *pipes, int num)
 	pid_t	pid;
 	char	*full_path;
 
+	if (!execute_build(pipes))
+		return ;
 	pid = fork();
 	if (pid == -1)
 		init_err("can't create new process", NULL, 1, 1);
@@ -92,7 +94,7 @@ void	execute_pipe_bin(t_pipe *pipes, int num)
 		g_all->pids[num] = pid;
 }
 
-int	pipe_executor(t_all *g_all)
+void	pipe_executor(t_all *g_all)
 {
 	t_pipe	*pipes;
 	int		i;
@@ -105,8 +107,10 @@ int	pipe_executor(t_all *g_all)
 		if (pipes->redir)
 			choose_out_in(pipes, pipes->redir);
 		if (g_all->err_str->code != NULL)
-			return (1);
-		if (execute_build(pipes))
+			break ;
+		if (pipes->next == NULL)
+			exec_last(pipes);
+		else
 			execute_pipe_bin(pipes, i++);
 		if (!isatty(pipes->fd_in))
 			close(pipes->fd_in);
@@ -117,5 +121,4 @@ int	pipe_executor(t_all *g_all)
 	i = 0;
 	while (g_all->pids[i])
 		waitpid(g_all->pids[i++], &g_all->err_str->exit_status, 0);
-	return (0);
 }
