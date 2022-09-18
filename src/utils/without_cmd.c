@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 00:46:25 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/17 07:15:15 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/18 02:22:38 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,20 @@ void	make_heredoc2(t_redir *redir)
 	signal(SIGINT, (void *)&handler_heredoc2);
 	heredoc = NULL;
 	heredoc = readline("heredoc>");
-	rl_on_new_line();
 	while (heredoc)
 	{
 		if (ft_strcmp(heredoc, redir->file) == 0)
+		{
+			free(heredoc);
 			break ;
+		}
 		free(heredoc);
 		if (g_all->err_str->exit_status == 1)
 			break ;
-		heredoc = readline("heredoc>");
+		else
+			heredoc = readline("heredoc>");
 	}
+	signal(SIGINT, &signal_sigint);
 }
 
 int	read_from_file2(t_redir *redir)
@@ -67,6 +71,7 @@ void	without_cmd(t_redir *redir, t_cmd_list *tmp_cmd)
 	t_redir	*tmp_redir;
 
 	tmp_redir = redir;
+	g_all->err_str->exit_status = 0;
 	while (redir != NULL)
 	{
 		if (redir->type == REDIRECT_OUT)

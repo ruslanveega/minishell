@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 22:33:02 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/17 03:11:17 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/18 03:46:30 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,11 @@ static void	process_cmd(t_list *token_list, char *cmd_options[], int index)
 	t_token	*token;
 	char	*str;
 
+	str = NULL;
 	token = (t_token *)token_list->content;
-	str = ft_strdup(token->value);
-	if (str)
-		cmd_options[index] = str;
+	if (token->value)
+		str = ft_strdup(token->value);
+	cmd_options[index] = str;
 }
 
 void	get_cmd_list(t_cmd_list **cmd_list, t_list *token_list)

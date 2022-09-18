@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 03:26:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/17 06:48:31 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/18 02:47:39 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	exec_last(t_pipe *pipes)
 		init_err("can't create new process", NULL, 1, 1);
 	if (pid == 0)
 	{
-		child_signal();
 		dup2(pipes->fd_in, 0);
 		dup2(pipes->fd_out, 1);
 		full_path = get_full_path(pipes->command, g_all->env);

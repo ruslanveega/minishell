@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 23:19:35 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/17 06:43:10 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/18 03:13:19 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	to_home_or_prev_dir(t_sl_list *env, int old_or_home)
 			return (init_err("cd:", "", 0, 1));
 	}
 	update_pwd(env, "OLDPWD", oldpwd, 6);
-	chdir(path);
+	if (ft_strcmp(oldpwd, path))
+		chdir(path);
 	update_pwd(env, "PWD", path, 3);
 	return (0);
 }
@@ -105,6 +106,7 @@ void	ft_cd(char **line, t_sl_list *env)
 		{
 			write(1, "cd: ", 4);
 			init_err(NOT_FILE, line[1], 0, 1);
+			return ;
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 03:57:39 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/17 04:57:11 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:26:10 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	free_redirs(t_redir *redir)
 		redir = redir->next;
 		if (tmp_redir->file)
 			free(tmp_redir->file);
+			tmp_redir->file = NULL;
 		free(tmp_redir);
+		tmp_redir = NULL;
 	}
 }
 

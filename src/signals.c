@@ -6,24 +6,16 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 23:54:31 by fcassand          #+#    #+#             */
-/*   Updated: 2022/09/17 07:13:38 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/18 02:48:02 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	child_signal(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	if (g_all->err_str->exit_status)
-		exit(130);
-}
-
 int	handler_heredoc2(int sig)
 {
 	(void)sig;
-	ft_putendl_fd("", 1);
+	printf("\n");
 	rl_on_new_line();
 	g_all->err_str->exit_status = 1;
 	return (0);

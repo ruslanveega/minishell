@@ -6,7 +6,7 @@
 /*   By: fcassand <fcassand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 20:03:29 by cdell             #+#    #+#             */
-/*   Updated: 2022/09/17 06:38:32 by fcassand         ###   ########.fr       */
+/*   Updated: 2022/09/18 01:06:19 by fcassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	build_token_list(char **line, t_list **token_list)
 			|| token_key == SINGLE_QUOTE || token_key == DOUBLE_QUOTE
 			|| token_key == EXIT_STATUS)
 			token_value = get_token_value(token_key, t_start, t_end);
+		if (token_key == WORD && !token_value)
+			continue ;
 		append_token(token_list, token_key, token_value);
 	}
 }
